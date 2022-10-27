@@ -6,30 +6,21 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>{% block title %}{% endblock %}</title>
 	</head>
+	<header>
+		<nav>
+			<ul>
+				<li><a href="/">Home</a></li>
+				<li><a href="/about">About</a></li>
+				<li><a href="/login">Login</a></li>
+				<li><a href="/register">Register</a></li>
+				<li><a href="/create">Create Post</a></li>
+			</ul>
+		</nav>
+	</header>
 	<body>
-		<nav class="navbar navbar-expand-lg navbar-light bg-light">
-			  <span class="navbar-toggler-icon"></span>
-			</button>
-		  
-			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-			  <ul class="navbar-nav mr-auto">
-				<li class="nav-item active">
-				  <a class="nav-link" href="#">Home</a>
-				</li>
-				<li class="nav-item">
-				  <a class="nav-link" href="#">Login</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="#">Register</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="#">Search</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="#">Make a Post</a>
-				</li>
-			</div>
-		  </nav>
-		<div class="container mt-4">{% block body %}{% endblock %}</div>
+		{% block body %} {% endblock %}
 	</body>
+	<footer>
+		<p>&copy;2022 Gaming Global. All rights reserved.</p>
+	</footer>
 </html>
