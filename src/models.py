@@ -1,6 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 
-db = SQLAlchemy
+db = SQLAlchemy()
 
 class Game(db.Model):
      gaming_id = db.column(db.Integer, primary_key=True)
