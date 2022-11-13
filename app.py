@@ -2,7 +2,7 @@ from flask import Flask, render_template, session, redirect, url_for, request, a
 import psycopg2
 import psycopg2.extras
 from src.models import db, Account
-from werkzeug.security import generate_password_hash
+from werkzeug.security import generate_password_hash, check_password_hash
 
 from src.repositories.gaming_repository import gaming_repository_singleton
 
@@ -33,6 +33,21 @@ def about():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    if request.method == 'POST' and 'username' in request.form and 'password' in request.form: 
+        user_name = request.form['username']
+        password = request.form['password']
+        username_object = gaming_repository_singleton.check_username(user_name)
+
+        if username_object: 
+            database_password = username_object.password
+            if check_password_hash(password, database_password): 
+                session['loggedin'] = True
+                return redirect(url_for('index'))
+
+        #Make sure the username and password is what it's supposed to. DELETE in the final product.
+        print(user_name)
+        print(password)
+
     return render_template("login.html")
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -46,9 +61,9 @@ def register():
 
         #Check for different conditions, such as if the database has an email/username registered. If not, then make account.
         if gaming_repository_singleton.check_username(user_name): 
-            return "Someone has this username"
+            flash("Someone has this username", category='error')
         elif gaming_repository_singleton.check_email(email): 
-            return "Someone already registered with this email"
+            flash("Someone has taken this email", category='error')
         else: 
             new_account = gaming_repository_singleton.create_user_account(user_name, fullname, hashed_password, email)
             #Make sure everything is here. DELETE in the final product. 

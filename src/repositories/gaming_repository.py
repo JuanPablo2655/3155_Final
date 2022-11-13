@@ -18,6 +18,15 @@ class Gaming_Repository:
     def check_email(self, email): 
         email_object = Account.query.filter_by(email=email).first() 
         return email_object
+    
+    def get_password(self, password): 
+        #fix this as this is returning an id instead of the password
+        passw = Account.query.get(password)
+        return passw
+
+    def get_user_id(self, id): 
+        user_id = Account.query.get(id)
+        return user_id
 
 #use in other modules
 gaming_repository_singleton = Gaming_Repository()
