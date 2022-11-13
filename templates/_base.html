@@ -12,13 +12,25 @@
 			<ul>
 				<li><a href="/">Home</a></li>
 				<li><a href="/about">About</a></li>
-				<li><a href="/login">Login</a></li>
-				<li><a href="/register">Register</a></li>
+				<li><a href="{{url_for('login')}}">Login</a></li>
+				<li><a href="{{url_for('register')}}">Register</a></li>
 				<li><a href="/create">Create Post</a></li>
 			</ul>
 		</nav>
 	</header>
 	<body>
+		{% with messages = get_flashed_messages(with_categories=true) %} 
+		{% if messages%}
+			{% for message in messages%}
+			<div class="alert alert-danger alter-dismissable fade show" role="alert">
+				{{message}}
+				<button type="button" data-dismiss="alert">
+					<span>&times;</span>
+				</button>
+			</div>
+			{% endfor %}
+		{% endif %} 
+		{% endwith %} 
 		{% block body %} {% endblock %}
 	</body>
 	<footer>
