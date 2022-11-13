@@ -39,10 +39,14 @@ def login():
         username_object = gaming_repository_singleton.check_username(user_name)
 
         if username_object: 
-            database_password = username_object.password
-            if check_password_hash(password, database_password): 
+            if check_password_hash(username_object.gaming_password, password): 
+                flash('logged in succesfully.', category='success')
                 session['loggedin'] = True
                 return redirect(url_for('index'))
+            else: 
+                flash('Incorrect password, please try again.', category='error')
+        else: 
+            flash('Username does not exist', category='error')
 
         #Make sure the username and password is what it's supposed to. DELETE in the final product.
         print(user_name)

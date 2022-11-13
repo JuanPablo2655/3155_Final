@@ -24,7 +24,7 @@ class Post(db.Model):
      title = db.Column(db.String, nullable=False)
      author = db.Column(db.String, nullable=False)
      content = db.Column(db.String, nullable=False)
-     comment = db.relationship('Comment', secondary='', backref='Post')
+     #comment = db.relationship('Comment', secondary='', backref='Post')
 
 
 class Comment(db.Model): 
@@ -32,7 +32,7 @@ class Comment(db.Model):
      title = db.Column(db.String, nullable=False)
      author = db.Column(db.String, nullable=False)
      content = db.Column(db.String, nullable=False)
-     post = db.relationship('Post', secondary='', backref='Comment')
+     #post = db.relationship('Post', secondary='', backref='Comment')
 
 
 
