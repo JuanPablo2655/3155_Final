@@ -56,6 +56,7 @@ class Comment(db.Model):
      title = db.Column(db.String, nullable=False)
      author = db.Column(db.String, nullable=False)
      content = db.Column(db.String, nullable=False)
+     date_posted = db.Column(db.String, nullable=False)
      #The post_id of the comment. Where the comment belongs to. 
      post_id = db.Column(db.Integer, db.ForeignKey('post.post_id'), nullable=False)
      #The account_id of the comment. Who the comment belongs to. 

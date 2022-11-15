@@ -15,12 +15,20 @@ CREATE TABLE Game(
     title VARCHAR(255) NOT NULL, 
     genre VARCHAR(255) NOT NULL, 
     PRIMARY KEY (gaming_id)
-)
+);
 
 CREATE TABLE Community(
     community_id SERIAL NOT NULL, 
     community_name VARCHAR(255) NOT NULL
     PRIMARY KEY (community_id)
+);
+
+CREATE TABLE account_course(
+    account_id INT, 
+    community_id INT,
+    PRIMARY KEY (account_id, community_id), 
+    FOREIGN KEY (account_id) REFERENCES Account(account_id),
+    FOREIGN KEY (community_id) REFERENCES Community(community_id)
 )
 
 CREATE TABLE Post(
@@ -28,6 +36,22 @@ CREATE TABLE Post(
     title VARCHAR(255) NOT NULL, 
     author VARCHAR(255) NOT NULL, 
     content VARCHAR(255) NOT NULL, 
-    comment VARCHAR(255) NOT NULL, 
-    PRIMARY KEY (post_id)
-)
+    date_posted VARCHAR(255) NOT NULL, 
+    account_id INT NOT NULL, 
+    community_id INT NOT NULL, 
+    PRIMARY KEY (post_id),
+    FOREIGN KEY (account_id) REFERENCES Account(account_id)
+    FOREIGN KEY (community_id) REFERENCES Community(community_id)
+);
+
+CREATE TABLE Comment(
+    comment_id SERIAL NOT NULL,
+    title VARCHAR(255) NOT NULL, 
+    author VARCHAR(255) NOT NULL, 
+    date_posted VARCHAR(255) NOT NULL, 
+    post_id INT NOT NULL, 
+    account_id INT NOT NULL, 
+    PRIMARY KEY (comment_id),
+    FOREIGN KEY (post_id) REFERENCES Post(post_id)
+    FOREIGN KEY (account_id) REFERENCES Account(account_id)
+);

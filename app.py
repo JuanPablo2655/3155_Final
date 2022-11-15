@@ -16,8 +16,6 @@ app.config['SQLALCHEMY_DATABASE_URI'] = \
 
 db.init_app(app)
 
-connection = psycopg2.connect(host='localhost', user='postgres', password='abc123', database='user')
-cursor = connection.cursor()
 
 
 
