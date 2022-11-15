@@ -23,7 +23,7 @@ CREATE TABLE Community(
     PRIMARY KEY (community_id)
 );
 
-CREATE TABLE account_course(
+CREATE TABLE account_community(
     account_id INT, 
     community_id INT,
     PRIMARY KEY (account_id, community_id), 
