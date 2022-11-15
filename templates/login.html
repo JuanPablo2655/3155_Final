@@ -10,4 +10,20 @@
         <button type="submit">Submit</button>
     </div>
 </form>
+
+<h2>Don't already have an account, register below to create one!</h2>
+
+<form action="{{url_for('register') }}" method="post" autocomplete="off">
+    <div class="container">
+        <label for="fullname">Full Name: </label>
+        <input type="text" name="fullname" placeholder="fullname" required>
+        <label for="email">Email</label>
+        <input type="text" name="email" placeholder="email" required>
+        <label for="username">Username: </label>
+        <input type="text" name="username" placeholder="Username" required>
+        <label for="password">Password:</label>
+        <input type="password" name="password" placeholder="Password" required>
+        <button type="submit">Submit</button>
+    </div>
+</form>
 {% endblock %}
