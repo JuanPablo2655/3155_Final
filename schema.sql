@@ -5,8 +5,8 @@ CREATE TABLE Account(
     account_id SERIAL NOT NULL, 
     user_name VARCHAR(255) NOT NULL, 
     full_Name VARCHAR(255) NOT NULL,
-    gaming_password VARCHAR (255) NOT NULL
-    email VARCHAR(255) NOT NULL
+    gaming_password VARCHAR (255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
     PRIMARY KEY (account_id)
 );
 
@@ -19,7 +19,7 @@ CREATE TABLE Game(
 
 CREATE TABLE Community(
     community_id SERIAL NOT NULL, 
-    community_name VARCHAR(255) NOT NULL
+    community_name VARCHAR(255) NOT NULL,
     PRIMARY KEY (community_id)
 );
 
@@ -40,7 +40,7 @@ CREATE TABLE Post(
     account_id INT NOT NULL, 
     community_id INT NOT NULL, 
     PRIMARY KEY (post_id),
-    FOREIGN KEY (account_id) REFERENCES Account(account_id)
+    FOREIGN KEY (account_id) REFERENCES Account(account_id),
     FOREIGN KEY (community_id) REFERENCES Community(community_id)
 );
 
@@ -52,6 +52,6 @@ CREATE TABLE Comment(
     post_id INT NOT NULL, 
     account_id INT NOT NULL, 
     PRIMARY KEY (comment_id),
-    FOREIGN KEY (post_id) REFERENCES Post(post_id)
+    FOREIGN KEY (post_id) REFERENCES Post(post_id),
     FOREIGN KEY (account_id) REFERENCES Account(account_id)
 );
