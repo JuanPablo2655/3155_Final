@@ -29,7 +29,7 @@ CREATE TABLE account_community(
     PRIMARY KEY (account_id, community_id), 
     FOREIGN KEY (account_id) REFERENCES Account(account_id),
     FOREIGN KEY (community_id) REFERENCES Community(community_id)
-)
+);
 
 CREATE TABLE Post(
     post_id SERIAL NOT NULL, 
