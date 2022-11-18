@@ -9,7 +9,7 @@ class Game(db.Model):
      genre = db.Column(db.String, nullable=True)
 
 
-communities = db.Table('communities', 
+communities = db.Table('account_community', 
      db.Column('community_id', db.Integer, db.ForeignKey('community.community_id'), primary_key=True),
      db.Column('account_id', db.Integer, db.ForeignKey('account.account_id'), primary_key=True),
 )
