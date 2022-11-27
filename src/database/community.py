@@ -1,10 +1,13 @@
 from src.models import db, Community as CommunityModel
+        
+
 
 class Community: 
+    
     #Gets a community from the community database 
     def get_community(community_name): 
-        community = CommunityModel.query.filter_by(community_name=community_name).first()
-        return community 
+        get_comm = CommunityModel.query.filter_by(community_name=community_name).first()
+        return get_comm 
 
     #Creates a new community
     def create_community(community_name, description): 
@@ -21,5 +24,5 @@ class Community:
     def delete_community(community): 
         db.session.delete(community)
         db.session.commit()
-        community = Community()
     
+community = Community()
