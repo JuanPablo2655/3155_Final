@@ -33,6 +33,11 @@ class Account(db.Model):
 class Community(db.Model): 
      community_id = db.Column(db.Integer, primary_key=True)
      community_name = db.Column(db.String, nullable=True)
+     description = db.Column(db.String, nullable=True)
+     #Needs a user id 
+
+
+     
      #Many posts belong to a single community
      posts = db.relationship('Post', backref='community' ,lazy=True)
 
