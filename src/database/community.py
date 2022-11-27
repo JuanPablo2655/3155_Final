@@ -21,4 +21,5 @@ class Community:
     def delete_community(community): 
         db.session.delete(community)
         db.session.commit()
+        community = Community()
     
