@@ -46,9 +46,9 @@ CREATE TABLE Post(
 
 CREATE TABLE Comment(
     comment_id SERIAL NOT NULL,
-    title VARCHAR(255) NOT NULL, 
     author VARCHAR(255) NOT NULL, 
     date_posted VARCHAR(255) NOT NULL, 
+    content VARCHAR(255) NOT NULL 
     post_id INT NOT NULL, 
     account_id INT NOT NULL, 
     PRIMARY KEY (comment_id),
