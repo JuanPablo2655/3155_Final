@@ -48,6 +48,7 @@ class Post(db.Model):
      author = db.Column(db.String, nullable=False)
      content = db.Column(db.String, nullable=False)
      date_posted = db.Column(db.String, nullable=False)
+     votes = db.Column(db.Integer, nullable=False)
      #references the foreign key of the account id. In other words, who it belongs to
      account_id = db.Column(db.Integer, db.ForeignKey('account.account_id'), nullable=False)
      #All the comments on this one post. 
