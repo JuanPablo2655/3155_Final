@@ -35,7 +35,7 @@ def create():
 
 @app.get("/community")
 def community():
-    return None
+    return render_template('community.html')
 
 # USER PROFILE
 
