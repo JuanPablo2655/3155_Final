@@ -8,9 +8,9 @@ class Comment:
         comment = CommentModel.query.filter_by(comment_id=comment_id).first()
         return comment
 
-    def create_comment(author, date_posted, content, post_id, account_id):
-        comment = CommentModel(author=author, date_posted=date_posted,
-                               content=content, post_id=post_id, account_id=account_id)
+    def create_comment(title: str, author: str, content: str, date_posted: str, votes: str, post_id: int, account_id: int):
+        comment = CommentModel(title, author, content,
+                               date_posted, votes, post_id, account_id)
         db.session.add(comment)
         db.session.commit()
 

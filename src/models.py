@@ -35,7 +35,7 @@ class Account(db.Model):
     communities = db.relationship('Community', secondary=communities, lazy='subquery',
                                   backref=db.backref('accounts', lazy=True))
 
-    def __init__(self, user_name, full_name, gaming_password, email):
+    def __init__(self, user_name: str, full_name: str, gaming_password: str, email: str):
         self.user_name = user_name
         self.full_name = full_name
         self.gaming_password = gaming_password
@@ -50,7 +50,7 @@ class Community(db.Model):
     # Many posts belong to a single community
     posts = db.relationship('Post', backref='community', lazy=True)
 
-    def __init__(self, community_name, description):
+    def __init__(self, community_name: str, description: str):
         self.community_name = community_name
         self.description = description
 
@@ -71,12 +71,14 @@ class Post(db.Model):
     community_id = db.Column(db.Integer, db.ForeignKey(
         'community.community_id'), nullable=False)
 
-    def __init__(self, title, author, content, date_posted, votes):
+    def __init__(self, title: str, author: str, content: str, date_posted: str, votes: str, account_id: int, community_id: int):
         self.title = title
         self.author = author
         self.content = content
         self.date_posted = date_posted
         self.votes = votes
+        self.account_id = account_id
+        self.community_id = community_id
 
 
 class Comment(db.Model):
@@ -93,9 +95,11 @@ class Comment(db.Model):
     account_id = db.Column(db.Integer, db.ForeignKey(
         'account.account_id'), nullable=False)
 
-    def __init__(self, title: str, author: str, content: str, date_posted: str, votes: str):
+    def __init__(self, title: str, author: str, content: str, date_posted: str, votes: str, post_id: int, account_id: int):
         self.title = title
         self.author = author
         self.content = content
         self.date_posted = date_posted
         self.votes = votes
+        self.post_id = post_id
+        self.account_id = account_id
