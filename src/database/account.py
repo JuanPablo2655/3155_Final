@@ -3,9 +3,9 @@ from src.models import db, Account as AccountModel
 
 class Account:
     # Get the methods from the repository and then put them into the app.py file
-    def create_user_account(self, user_name, full_name, gaming_password, email):
+    def create_user_account(self, user_name: str, full_name: str, gaming_password: str, email: str):
         new_account = AccountModel(
-            user_name=user_name, full_name=full_name, gaming_password=gaming_password, email=email)
+            user_name, full_name, gaming_password, email)
         db.session.add(new_account)
         db.session.commit()
         return new_account
