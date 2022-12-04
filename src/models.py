@@ -34,10 +34,7 @@ class Community(db.Model):
      community_id = db.Column(db.Integer, primary_key=True)
      community_name = db.Column(db.String, nullable=True)
      description = db.Column(db.String, nullable=True)
-     #Needs a user id 
-
-
-     
+     #Needs a user id      
      #Many posts belong to a single community
      posts = db.relationship('Post', backref='community' ,lazy=True)
 
@@ -63,6 +60,7 @@ class Comment(db.Model):
      author = db.Column(db.String, nullable=False)
      content = db.Column(db.String, nullable=False)
      date_posted = db.Column(db.String, nullable=False)
+     votes = db.Column(db.Integer, nullable=False)
      #The post_id of the comment. Where the comment belongs to. 
      post_id = db.Column(db.Integer, db.ForeignKey('post.post_id'), nullable=False)
      #The account_id of the comment. Who the comment belongs to. 

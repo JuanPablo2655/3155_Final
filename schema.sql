@@ -20,6 +20,7 @@ CREATE TABLE Game(
 CREATE TABLE Community(
     community_id SERIAL NOT NULL, 
     community_name VARCHAR(255) NOT NULL,
+    description VARCHAR(255) NOT NULL,
     PRIMARY KEY (community_id)
 );
 
@@ -36,6 +37,7 @@ CREATE TABLE Post(
     title VARCHAR(255) NOT NULL, 
     author VARCHAR(255) NOT NULL, 
     content VARCHAR(4096) NOT NULL, 
+    votes INT NOT NULL, 
     date_posted VARCHAR(255) NOT NULL, 
     account_id INT NOT NULL, 
     community_id INT NOT NULL, 
@@ -48,7 +50,8 @@ CREATE TABLE Comment(
     comment_id SERIAL NOT NULL,
     author VARCHAR(255) NOT NULL, 
     date_posted VARCHAR(255) NOT NULL, 
-    content VARCHAR(4096) NOT NULL 
+    content VARCHAR(4096) NOT NULL, 
+    votes INT NOT NULL, 
     post_id INT NOT NULL, 
     account_id INT NOT NULL, 
     PRIMARY KEY (comment_id),
