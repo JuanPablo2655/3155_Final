@@ -71,7 +71,7 @@ def register():
         return render_template("register.html")
 
 
-@auth.post('/logout')
+@auth.get('/logout')
 def logout():
     session.pop('user')
     return redirect('/')
