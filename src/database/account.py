@@ -14,6 +14,10 @@ class Account:
         user_object = AccountModel.query.filter_by(user_name=user_name).first()
         return user_object
 
+    def check_by_id(self, id): 
+        user_object = Account.query.filter_by(account_id=id).first()
+        return user_object
+        
     def check_email(self, email):
         email_object = AccountModel.query.filter_by(email=email).first()
         return email_object
