@@ -28,31 +28,6 @@ def about():
     return render_template("about.html")
 
 
-# COMMUNITY POSTS / FEED
-
-# @app.get('/communities')
-# def communities():
-#     return render_template('communities.html')
-
-
-# @app.route('/community/create', methods=['GET', 'POST'])
-# def create_community():
-
-#     return render_template('create_community.html')
-
-
-# @app.route("/community", methods=['GET', 'POST'])
-# def community():
-#     return render_template('community.html')
-
-# create a post
-
-
-# @app.get('/community/post')
-# def create_post():
-#     return render_template('create.html')
-
-
 # USER PROFILE
 
 
