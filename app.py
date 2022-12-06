@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template 
 from src.models import db
 from src.config import postgres_uri, secret_key
 from src.security import bcrypt
@@ -26,16 +26,29 @@ def about():
     return render_template("about.html")
 
 
-@app.get('/create')
-def create():
-    return render_template("create.html")
+
 
 # COMMUNITY POSTS / FEED
 
+@app.get('/communities')
+def communities(): 
+    return render_template('communities.html')
 
-@app.get("/community")
+@app.route('/community/create', methods=['GET', 'POST'])
+def create_community(): 
+
+    return render_template('create_community.html')
+
+@app.route("/community", methods=['GET', 'POST'])
 def community():
     return render_template('community.html')
+
+#create a post 
+@app.get('/community/post')
+def create_post(): 
+    return render_template('create.html')
+
+
 
 # USER PROFILE
 

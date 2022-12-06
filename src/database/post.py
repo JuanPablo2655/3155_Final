@@ -9,7 +9,6 @@ class Post:
         return post
 
         # TODO: Add more methods to the post. Delete when done
-
     def create_post(title: str, author: str, content: str, date_posted: str, votes: str, account_id: int, community_id: int):
         post = PostModel(title, author, content, date_posted,
                          votes, account_id, community_id)

@@ -1,0 +1,17 @@
+{% extends '_base.html' %} {% block title %}Communities{% endblock %}Communities{% block body %}
+<h1>Create a Community</h1>
+
+<!--Create communities -->
+<form action="/community" method="POST" autocomplete="off">
+    <label for="Name">Name</label>
+    <input for="Name">
+    <label for="description">Description</label>
+    <textarea name="description"></textarea>
+    <button type="submit" 							
+    class="inline-block px-7 py-3 border-2 border-blue-400 dark:border-violet-400 text-white font-medium text-sm leading-snug uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
+    data-mdb-ripple="true"
+    data-mdb-ripple-color="light">Submit</button>
+</form>
+
+
+{% endblock %}
