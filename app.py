@@ -1,9 +1,11 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, session
 from src.models import db
 from src.config import postgres_uri, secret_key
 from src.security import bcrypt
 from src.authentication import auth
 from src.community import community_blueprint as community
+
+from src.database.account import account
 
 app = Flask(__name__)
 app.secret_key = secret_key
@@ -28,9 +30,13 @@ def about():
     return render_template("about.html")
 
 
+
+
 # USER PROFILE
 
 
-@app.get("/user")
+@app.route("/user")
 def user():
-    return None
+    id = session['user']['user_id']
+    user_account = account.get_user_id(id) 
+    return render_template('user.html', user_account=user_account)
