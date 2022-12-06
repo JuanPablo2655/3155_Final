@@ -3,10 +3,15 @@ from src.models import db, Community as CommunityModel
 
 class Community:
 
+    #Gets all communities
+    def get_all_communities(self) -> list[CommunityModel]:
+        communities: list[CommunityModel] = CommunityModel.query.all()
+        return communities
+
     # Gets a community from the community database
     def get_community(community_name):
         get_comm = CommunityModel.query.filter_by(
-            community_name=community_name).first()
+        community_name=community_name).first()
         return get_comm
 
     # Creates a new community

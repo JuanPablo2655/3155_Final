@@ -1,11 +1,13 @@
 from flask import Blueprint, render_template
+from src.database.community import community
 
 community_blueprint = Blueprint('community', __name__)
 
 
 @community_blueprint.get('/communities')
 def communities():
-    return render_template('communities.html')
+    all_communities = community.get_all_communities()
+    return render_template('communities.html', communities = all_communities)
 
 
 @community_blueprint.route('/community/create', methods=['GET', 'POST'])
