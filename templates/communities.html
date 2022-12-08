@@ -7,7 +7,7 @@
 <h2>Communities:</h2>
 {% for community in communities %}
       <tr>
-        <td>{{ community.community_name }}</a></td>
+        <td><a href="{{ url_for('community.community', name=community.community_name)}}">{{ community.community_name }}</a></td>
         <td>{{ community.description }}</td>
       </tr>
     {% endfor %}
