@@ -18,7 +18,11 @@ def login():
             if bcrypt.check_password_hash(username_object.gaming_password, password):
                 flash('logged in successfully.', category='success')
                 session['user'] = {
-                    'user_id': username_object.account_id
+                    'user_id': username_object.account_id,
+                    'user_email': username_object.email,
+                    'user_name': username_object.full_name,
+                    'username': username_object.user_name
+
                 }
                 return redirect(url_for('index'))
             else:
