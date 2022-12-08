@@ -10,13 +10,6 @@ CREATE TABLE Account(
     PRIMARY KEY (account_id)
 );
 
-CREATE TABLE Game(
-    gaming_id SERIAL NOT NULL, 
-    title VARCHAR(255) NOT NULL, 
-    genre VARCHAR(255) NOT NULL, 
-    PRIMARY KEY (gaming_id)
-);
-
 CREATE TABLE Community(
     community_id SERIAL NOT NULL, 
     community_name VARCHAR(255) NOT NULL,
