@@ -1,11 +1,18 @@
 {% extends '_base.html' %} {% block title %}Communities{% endblock %}Communities{% block body %}
-<h1>Create a Community</h1>
-
+<h1>Here is the Communities page. Look around or or create your own!</h1>
 <!--Create communities -->
-<form action="/community/create">
-    <button type="submit">Submit</button>
+<a href="/community/form" 
+>Create your own one here!</a>
 
-</form>
+<h2>Communities:</h2>
+{% for community in communities %}
+      <tr>
+        <td>{{ community.community_name }}</a></td>
+        <td>{{ community.description }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
 
 
 
