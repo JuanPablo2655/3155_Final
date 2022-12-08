@@ -1,14 +1,41 @@
 {% extends '_base.html' %} {% block title %}About{% endblock %} {% block body %}
-<h1>About Page</h1>
-<p>
-	This site was developed as the final project for the ITSC 3155 Software Engineering course at University of Charlotte
-</p>
-<p>The contributors to this site are:</p>
-<ul>
-	<li>Isidro Casiano-Pineda</li>
-	<li>Christian Acosta</li>
-	<li>Santiago Sanchez</li>
-	<li>Harris Alimi</li>
-	<li>Zach Haynie</li>
-</ul>
+<div class="2xl:container 2xl:mx-auto lg:py-16 lg:px-20 md:py-12 md:px-6 py-9 px-4">
+
+	<div class="flex lg:flex-row flex-col justify-between gap-8 pt-12">
+		<div class="w-full lg:w-5/12 flex flex-col justify-center">
+			<h1 class="text-3xl lg:text-4xl font-bold leading-9 text-gray-800 dark:text-white pb-4">Our Story</h1>
+			<p class="font-normal text-base leading-6 text-gray-600 dark:text-white">This site was developed as the final project for the ITSC 3155 Software Engineering course at University of Charlotte.</p>
+		</div>
+		<div class="w-full lg:w-8/12 lg:pt-8">
+			<div class="grid md:grid-cols-4 sm:grid-cols-2 grid-cols-1 lg:gap-4 shadow-lg rounded-md">
+				<div class="p-4 pb-6 flex justify-center flex-col items-center">
+					<img class="md:block hidden" src="static/Harris.png" alt="Harris Featured Image" />
+					<img class="md:hidden block" src="static/Harris.png" alt="Harris Featured Image" />
+					<p class="font-medium text-xl leading-5 text-gray-800 dark:text-white mt-4">Harris</p>
+				</div>
+				<div class="p-4 pb-6 flex justify-center flex-col items-center">
+					<img class="md:block hidden" src="static/Isidro.png" alt="Isidro Featured Image" />
+					<img class="md:hidden block" src="static/Isidro.png" alt="Isidro Featured Image" />
+					<p class="font-medium text-xl leading-5 text-gray-800 dark:text-white mt-4">Isidro Casiano-Pineda</p>
+				</div>
+				<div class="p-4 pb-6 flex justify-center flex-col items-center">
+					<img class="md:block hidden" src="static/Zach.png" alt="Zach Featued Image" />
+					<img class="md:hidden block" src="static/Zach.png" alt="Zach Featured Image" />
+					<p class="font-medium text-xl leading-5 text-gray-800 dark:text-white mt-4">Zach Haynie</p>
+				</div>
+				<div class="p-4 pb-6 flex justify-center flex-col items-center">
+					<img class="md:block hidden" src="static/Christian.png" alt="Christian Featured Image" />
+					<img class="md:hidden block" src="static/Christian.png" alt="Christian Featured Image" />
+					<p class="font-medium text-xl leading-5 text-gray-800 dark:text-white mt-4">Christian Acosta</p>
+				</div>
+				<div class="p-4 pb-6 flex justify-center flex-col items-center">
+					<img class="md:block hidden" src="static/santiago.png" alt="Santiago Featured Image" />
+					<img class="md:hidden block" src="static/santiago.png" alt="Santiago Featured Image" />
+					<p class="font-medium text-xl leading-5 text-gray-800 dark:text-white mt-4">Santiago Dubon-Sanchez</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
 {% endblock %}
