@@ -21,15 +21,16 @@ def create_community():
         if name == '' or description == '':
             abort(400)
         new_community = community_db.create_community(name, description)
-        return redirect(url_for('community.communities'))
+        return redirect(url_for('community.communities'), name=name)
 
     return render_template('communities.html')
     
 
 
-@community_blueprint.route("/community", methods=['GET', 'POST'])
-def community():
-    return render_template('community.html')
+@community_blueprint.route("/community/<string:name>", methods=['GET', 'POST'])
+def community(name):
+    community_obj = community_db.get_community(name)
+    return render_template('community.html', community=community_obj)
 
 # create a post
 
