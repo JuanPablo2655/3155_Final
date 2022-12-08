@@ -1,12 +1,12 @@
 from flask import Blueprint, render_template
-from src.database.community import community
+from src.database.community import community as community_db
 
 community_blueprint = Blueprint('community', __name__)
 
 
 @community_blueprint.get('/communities')
 def communities():
-    all_communities = community.get_all_communities()
+    all_communities = community_db.get_all_communities()
     return render_template('communities.html', communities = all_communities)
 
 

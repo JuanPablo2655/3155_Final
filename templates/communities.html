@@ -1,10 +1,19 @@
 {% extends '_base.html' %} {% block title %}Communities{% endblock %}Communities{% block body %}
 <h1>Here is the Communities page. Look around or or create your own!</h1>
 <!--Create communities -->
-<form action="/community/create">
-    <button type="submit">Submit</button>
+<h3>Click here to create your own community!</h3>
+<a href="{{url_for('community_blueprint.community.create')}}" 
+>Create one here!</a>
 
-</form>
+<h2>Communities:</h2>
+{% for community in communities %}
+      <tr>
+        <td>{{ community.community_name }}</a></td>
+        <td>{{ movie.description }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
 
 
 
