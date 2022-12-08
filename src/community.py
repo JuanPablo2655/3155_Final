@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, abort, redirect, request
 from src.database.community import community as community_db
 
 community_blueprint = Blueprint('community', __name__)
@@ -12,8 +12,12 @@ def communities():
 
 @community_blueprint.route('/community/create', methods=['GET', 'POST'])
 def create_community():
-
-    return render_template('create_community.html')
+    name = request.form.get('name', '')
+    description = request.form.get('description', '')
+    if name == '' or description == '':
+        abort(400)
+    new_community = community_db.create_community(name, description)
+    return redirect(f'/communities/{new_community.community_id}')
 
 
 @community_blueprint.route("/community", methods=['GET', 'POST'])
