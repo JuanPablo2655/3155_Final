@@ -1,4 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
+import datetime
 
 db = SQLAlchemy()
 
@@ -60,8 +61,8 @@ class Post(db.Model):
     title = db.Column(db.String, nullable=False)
     author = db.Column(db.String, nullable=False)
     content = db.Column(db.String, nullable=False)
-    date_posted = db.Column(db.String, nullable=False)
-    votes = db.Column(db.Integer, nullable=False)
+    date_posted = db.Column(db.DateTime, nullable=False, default=datetime.datetime.utcnow)
+    votes = db.Column(db.Integer, nullable=False, default=0)
     # references the foreign key of the account id. In other words, who it belongs to
     account_id = db.Column(db.Integer, db.ForeignKey(
         'account.account_id'), nullable=False)

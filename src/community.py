@@ -1,5 +1,6 @@
-from flask import Blueprint, render_template, abort, redirect, url_for, request
+from flask import Blueprint, render_template, abort, redirect, url_for, request, session
 from src.database.community import community as community_db
+from src.database.post import post as post_db
 
 community_blueprint = Blueprint('community', __name__)
 
@@ -24,7 +25,7 @@ def create_community():
         return redirect(url_for('community.communities'))
 
     return render_template('communities.html')
-    
+     
 
 
 @community_blueprint.route("/community/<string:name>", methods=['GET', 'POST'])
@@ -35,6 +36,18 @@ def community(name):
 # create a post
 
 
-@community_blueprint.get('/community/post')
-def create_post():
-    return render_template('create.html')
+@community_blueprint.get('/community/<string:name>/post')
+def create_post(name):
+    community_obj = community_db.get_community(name)
+
+    if request.method == 'POST': 
+        title = request.form.get('title')
+        content = request.form.get('description') 
+        author = session['user']['user_name']
+        account_id = session['user']['user_id']
+        community_id = community_obj.community_id 
+        new_post = post_db.create_post(author, content, account_id, community_id)
+
+        return redirect(url_for('community.community'))
+
+    return render_template('create.html', community=community_obj)
