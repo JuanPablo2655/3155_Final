@@ -1,6 +1,7 @@
-from flask import Blueprint, render_template, abort, redirect, url_for, request, session
+from flask import Blueprint, render_template, abort, redirect, url_for, request, session, flash
 from src.database.community import community as community_db
 from src.database.post import post as post_db
+import datetime
 
 community_blueprint = Blueprint('community', __name__)
 
@@ -47,10 +48,11 @@ def create_post(name):
         author = session['user']['user_name']
         account_id = session['user']['user_id']
         community_id = community_obj.community_id
+        print(title, content, author, account_id, community_id)
         if title == '' or content == '' or 'user' not in session:
             abort(400)
         post_db.create_post(
-            title, content, author, community_id, account_id)
+            title, author, content, community_id, account_id)
         return redirect(url_for('community.communities'))
 
     return render_template('create.html', community=community_obj)

@@ -9,7 +9,7 @@ class Post:
         return post
 
         # TODO: Add more methods to the post. Delete when done
-    def create_post(self, title, content, author, community_id, account_id): 
+    def create_post(self, title, author, content, community_id, account_id): 
         post = PostModel(title, author, content, community_id, account_id) 
         db.session.add(post)
         db.session.commit()

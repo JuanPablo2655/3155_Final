@@ -72,12 +72,10 @@ class Post(db.Model):
     community_id = db.Column(db.Integer, db.ForeignKey(
         'community.community_id'), nullable=False)
 
-    def __init__(self, title: str, author: str, content: str, date_posted: str, votes: str, account_id: int, community_id: int):
+    def __init__(self, title: str, author: str, content: str, account_id: int, community_id: int):
         self.title = title
         self.author = author
         self.content = content
-        self.date_posted = date_posted
-        self.votes = votes
         self.account_id = account_id
         self.community_id = community_id
 
