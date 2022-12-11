@@ -6,7 +6,9 @@
 	<button action="submit">Submit</button>
 </form>
 
-
+{% if not posts %} 
+<p>Go in and make a post</p>
+{% else %}
 
 {% for post in posts|reverse %}
 <section class="h-full relative dark:bg-gray-900 flex flex-col">
@@ -43,4 +45,8 @@
 	</div>
 </section>
 {% endfor %}
+
+
+{% endif %}
+
 {% endblock %}
