@@ -36,7 +36,7 @@ def community(name):
 # create a post
 
 
-@community_blueprint.get('/community/<string:name>/post')
+@community_blueprint.route('/community/<string:name>/post', methods=['GET', 'POST'])
 def create_post(name):
     community_obj = community_db.get_community(name)
 
@@ -46,8 +46,7 @@ def create_post(name):
         author = session['user']['user_name']
         account_id = session['user']['user_id']
         community_id = community_obj.community_id 
-        new_post = post_db.create_post(author, content, account_id, community_id)
-
-        return redirect(url_for('community.community'))
+        post1 = post_db.create_post(title, content, author, community_id, account_id)
+        return redirect(url_for('community.communities'))
 
     return render_template('create.html', community=community_obj)
