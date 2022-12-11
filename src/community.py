@@ -29,11 +29,14 @@ def create_community():
 
     return render_template('communities.html')
 
-
+#Name is community name
 @community_blueprint.route("/community/<string:name>", methods=['GET', 'POST'])
 def community(name):
+    
     community_obj = community_db.get_community(name)
-    return render_template('community.html', community=community_obj)
+    print(name)
+    get_all_posts = post_db.get_posts(name)
+    return render_template('community.html', community=community_obj, posts=get_all_posts)
 
 # create a post
 
