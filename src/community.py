@@ -56,6 +56,6 @@ def create_post(name):
             abort(400)
         post_db.create_post(
             title, author, content, community_id, account_id)
-        return redirect(url_for('community.communities'))
+        return redirect(url_for('community.community', name=name))
 
     return render_template('create.html', community=community_obj)
