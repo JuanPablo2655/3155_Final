@@ -13,8 +13,8 @@ def login():
         return redirect('/')
     else: 
         if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
-            user_name = request.form['username']
-            password = request.form['password']
+            user_name = request.form.get('username')
+            password = request.form.get('password')
             username_object = account.check_username(user_name)
 
             if username_object:
@@ -29,9 +29,11 @@ def login():
                     }
                     return redirect(url_for('index'))
                 else:
-                    flash('Incorrect password, please try again.', category='error')
+                    #flash('Incorrect password, please try again.', category='error')
+                    redirect('/login')
             else:
-                flash('Username does not exist', category='error')
+                #flash('Username does not exist', category='error')
+                redirect('/login')
 
             # Make sure the username and password is what it's supposed to. DELETE in the final product.
             print(user_name)
@@ -58,23 +60,15 @@ def register():
 
             # Check for different conditions, such as if the database has an email/username registered. If not, then make account.
             if account.check_username(user_name):
-                flash("Someone has this username", category='error')
-                session.clear()
                 return redirect('/register')
             elif account.check_email(email):
-                flash("Someone has taken this email", category='error')
-                session.clear()
                 return redirect('/register')
             elif password != confirm_password:
-                flash("Passwords are not the same", category='error')
-                session.clear()
                 return redirect('/register')
             else:
                 hashed_bytes = bcrypt.generate_password_hash(
                     password, bcrypt_rounds)
                 hashed_password = hashed_bytes.decode('utf-8')
-                flash("Registered Successfully!")
-                session.clear()
                 new_account = account.create_user_account(
                     user_name, fullname, hashed_password, email)
                 # Make sure everything is here. DELETE in the final product.

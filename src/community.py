@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, abort, redirect, url_for, request, session, flash
 from src.database.community import community as community_db
 from src.database.post import post as post_db
+from src.database.account import account as account_db
 import datetime
 
 community_blueprint = Blueprint('community', __name__)
@@ -34,8 +35,9 @@ def create_community():
 def community(name):
     
     community_obj = community_db.get_community(name)
-    print(name)
     get_all_posts = post_db.get_posts(name)
+
+
     return render_template('community.html', community=community_obj, posts=get_all_posts)
 
 # create a post
@@ -45,17 +47,26 @@ def community(name):
 def create_post(name):
     community_obj = community_db.get_community(name)
 
-    if request.method == 'POST':
+    if request.method == 'POST' and 'user' in session:
         title = request.form.get('title')
         content = request.form.get('description')
-        author = session['user']['user_name']
+        author = session['user']['username']
         account_id = session['user']['user_id']
         community_id = community_obj.community_id
-        print(title, content, author, account_id, community_id)
+
         if title == '' or content == '' or 'user' not in session:
             abort(400)
         post_db.create_post(
             title, author, content, community_id, account_id)
         return redirect(url_for('community.community', name=name))
+    else: 
+        redirect('/login')
 
     return render_template('create.html', community=community_obj)
+
+
+
+@community_blueprint.route('/community/<string:name>/<int:post_id>', methods=['GET', 'POST'])
+def get_specific_post(name, post_id): 
+
+    return render_template('post.html')
