@@ -23,12 +23,18 @@ def create_community():
     if request.method == 'POST':
         name = request.form.get('name')
         description = request.form.get('description')
-        if name == '' or description == '':
-            abort(400)
+        community_object = community_db.check_community(name)
+
+        if community_object:
+            flash("This communtity already exists", category='error')
+            return redirect('/communities')
+        else:
+            if name == '' or description == '':
+                abort(400)
         community_db.create_community(name, description)
         return redirect(url_for('community.communities'))
-
-    return render_template('communities.html')
+    else:
+        return render_template('communities.html')
 
 #Name is community name
 @community_blueprint.route("/community/<string:name>", methods=['GET', 'POST'])
@@ -68,5 +74,7 @@ def create_post(name):
 
 @community_blueprint.route('/community/<string:name>/<int:post_id>', methods=['GET', 'POST'])
 def get_specific_post(name, post_id): 
+    community_obj = community_db.get_community(name)
+    post = post_db.get_post(post_id)
 
-    return render_template('post.html')
+    return render_template('post.html', community=community_obj, post=post)

@@ -82,7 +82,6 @@ class Post(db.Model):
 
 class Comment(db.Model):
     comment_id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String, nullable=False)
     author = db.Column(db.String, nullable=False)
     content = db.Column(db.String, nullable=False)
     date_posted = db.Column(db.String, nullable=False)

@@ -14,6 +14,10 @@ class Community:
         community_name=community_name).first()
         return get_comm
 
+    def check_community(self, community_name):
+        community_object = CommunityModel.query.filter_by(community_name=community_name).first()
+        return community_object
+
     # Creates a new community
     def create_community(self, community_title: str, description: str):
         new_community = CommunityModel(community_title, description)
