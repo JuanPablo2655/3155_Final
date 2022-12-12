@@ -21,7 +21,7 @@ def create_community():
         if name == '' or description == '':
             abort(400)
         new_community = community_db.create_community(name, description)
-        return redirect(url_for('community.communities'), name=name)
+        return redirect(url_for('community.communities'))
 
     return render_template('communities.html')
     

@@ -1,19 +1,18 @@
 {% extends '_base.html' %} {% block title %}Communities{% endblock %}Communities{% block body %}
-<h1>Here is the Communities page. Look around or or create your own!</h1>
+<h1 class="text-white text-5xl">Here is the Communities page. Look around or or create your own!</h1>
 <!--Create communities -->
-<a href="/community/form">Create your own one here!</a>
+{% if session %}
+<a class="flex items-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3 md:mr-0 dark:focus:ring-blue-800 dark:bg-violet-400 dark:text-gray-900 dark:hover:bg-violet-500 w-56"
+  href="/community/form">Create your own one here!</a>
+{% endif %}
 
-<h2>Communities:</h2>
+<h2 class="text-white text-3xl">Communities:</h2>
 {% for community in communities %}
-<tr>
-  <td><a href="{{ url_for('community.community', name=community.community_name)}}">{{ community.community_name }}</a>
-  </td>
-  <td>{{ community.description }}</td>
-</tr>
+<div>
+  <a class="text-2xl text-blue-700" href="{{ url_for('community.community', name=community.community_name)}}">{{
+    community.community_name }}</a>
+  <p class="text-white">{{ community.description }}</p>
+</div>
 {% endfor %}
-</tbody>
-</table>
-
-
 
 {% endblock %}
