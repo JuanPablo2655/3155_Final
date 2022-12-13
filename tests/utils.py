@@ -2,8 +2,8 @@ from src.models import Community, Post, Comment, db
 
 
 def refresh_db():
-    # Comment.query.delete()
-    # Post.query.delete()
+    Comment.query.delete()
+    Post.query.delete()
     Community.query.delete()
     db.session.commit()
 
