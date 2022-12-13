@@ -12,6 +12,7 @@ jobs:
           postgresql password: test
           postgresql db: test
           postgresql init scripts: sql
+          postgresql conf: max_prepared_transactions=100
           postgresql auth: trust
       - name: Checkout repository
         uses: actions/checkout@v3
