@@ -75,7 +75,7 @@ def create_post(name):
 
     return render_template('create.html', community=community_obj)
 
-@community_blueprint.route('/community/<string:name>/<int:post_id>/delete', methods=['POST'])
+@community_blueprint.post('/community/<string:name>/<int:post_id>/delete')
 def delete_post(post_id, name): 
     if 'user' not in session: 
         return redirect('/login')
@@ -116,7 +116,7 @@ def create_comment(name, post_id):
     else: 
         return redirect('/login')
 
-@community_blueprint.route('/community/<string:name>/<int:post_id>/comment/<int:comment_id>/delete', methods=['POST'])
+@community_blueprint.post('/community/<string:name>/<int:post_id>/comment/<int:comment_id>/delete')
 def delete_comment(name, post_id, comment_id): 
     post = post_db.get_post(post_id)
     if 'user' not in session: 
