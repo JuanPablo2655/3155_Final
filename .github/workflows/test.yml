@@ -12,6 +12,7 @@ jobs:
           postgresql password: test
           postgresql db: test
           postgresql init scripts: sql
+          postgresql auth: trust
       - name: Checkout repository
         uses: actions/checkout@v3
       - name: Set up Python 3.10
