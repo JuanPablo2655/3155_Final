@@ -36,5 +36,5 @@ def about():
 @app.route("/user")
 def user():
     id = session['user']['user_id']
-    user_account = account.get_user_id(id) 
+    user_account = account.get_user_id(id)
     return render_template('user.html', user_account=user_account)
