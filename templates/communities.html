@@ -1,7 +1,7 @@
 {% extends '_base.html' %} {% block title %}Communities{% endblock %}Communities{% block body %}
 <div class="flex justify-center">
   <div class="flex justify-between w-3/4 border-b border-gray-200 dark:border-gray-700 pb-6 pt-6">
-    <h1>COMMUNITIES</h1>
+    <h1 class="dark:text-white">COMMUNITIES</h1>
 
     <!--Create communities -->
     {% if session %}
@@ -29,7 +29,7 @@
         <div class="flex items-start justify-between w-full">
           <div class="pl-3 w-full">
             <a href="{{ url_for('community.community', name=community.community_name)}}" tabindex="0"
-              class="focus:outline-none text-xl font-medium leading-5 text-gray-800 dark:text-white ">
+              class="focus:outline-none text-xl font-medium leading-5 text-gray-800 dark:text-white">
               {{ community.community_name }}</a>
           </div>
 
