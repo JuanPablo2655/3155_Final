@@ -11,7 +11,7 @@ jobs:
         with:
           postgresql password: test
           postgresql db: test
-          postgresql init scripts: schema.sql
+          postgresql init scripts: sql
       - name: Checkout repository
         uses: actions/checkout@v3
       - name: Set up Python 3.10
