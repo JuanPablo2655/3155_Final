@@ -9,7 +9,7 @@ jobs:
       - name: Setup Postgres
         uses: CasperWA/postgresql-action@v1.2
         with:
-          postgres password: test
+          postgresql password: test
           postgresql db: test
           postgresql init script: schema.sql
       - name: Checkout repository
