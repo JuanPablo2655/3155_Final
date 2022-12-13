@@ -1,4 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
+import datetime
 
 db = SQLAlchemy()
 
@@ -12,7 +13,7 @@ class Game(db.Model):
         self.title = title
         self.genre = genre
 
-
+#many to many relationship 
 communities = db.Table('account_community',
                        db.Column('community_id', db.Integer, db.ForeignKey(
                            'community.community_id'), primary_key=True),
@@ -60,8 +61,8 @@ class Post(db.Model):
     title = db.Column(db.String, nullable=False)
     author = db.Column(db.String, nullable=False)
     content = db.Column(db.String, nullable=False)
-    date_posted = db.Column(db.String, nullable=False)
-    votes = db.Column(db.Integer, nullable=False)
+    date_posted = db.Column(db.DateTime, nullable=True, default=datetime.datetime.utcnow)
+    votes = db.Column(db.Integer, nullable=True, default=0)
     # references the foreign key of the account id. In other words, who it belongs to
     account_id = db.Column(db.Integer, db.ForeignKey(
         'account.account_id'), nullable=False)
@@ -71,12 +72,10 @@ class Post(db.Model):
     community_id = db.Column(db.Integer, db.ForeignKey(
         'community.community_id'), nullable=False)
 
-    def __init__(self, title: str, author: str, content: str, date_posted: str, votes: str, account_id: int, community_id: int):
+    def __init__(self, title: str, author: str, content: str, account_id: int, community_id: int):
         self.title = title
         self.author = author
         self.content = content
-        self.date_posted = date_posted
-        self.votes = votes
         self.account_id = account_id
         self.community_id = community_id
 
