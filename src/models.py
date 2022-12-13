@@ -49,7 +49,7 @@ class Community(db.Model):
     description = db.Column(db.String, nullable=True)
     # Needs a user id
     # Many posts belong to a single community
-    posts = db.relationship('Post', backref='community', lazy=True)
+    posts = db.relationship('Post', backref='community', lazy=True, cascade='all, delete-orphan')
 
     def __init__(self, community_name: str, description: str):
         self.community_name = community_name
