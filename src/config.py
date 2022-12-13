@@ -4,6 +4,8 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+isCI = os.getenv("CI") == "true"
+
 
 def validate_env(_env):
     env = os.getenv(_env)
@@ -22,6 +24,8 @@ def validate_int_env(_env):
         raise ValueError(f"{_env} is not an integer")
 
 
-postgres_uri = validate_env("POSTGRES_URI")
-bcrypt_rounds = validate_int_env("BCRYPT_ROUNDS")
-secret_key = validate_env("SECRET_KEY")
+postgres_uri = os.getenv(
+    'POSTGRES_URI') if isCI else validate_env("POSTGRES_URI")
+bcrypt_rounds = os.getenv(
+    'BCRYPT_ROUNDS') if isCI else validate_int_env("BCRYPT_ROUNDS")
+secret_key = os.getenv('SECRET_KEY') if isCI else validate_env("SECRET_KEY")
