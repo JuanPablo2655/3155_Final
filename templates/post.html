@@ -24,7 +24,7 @@
 			<!-- POST CONTENT (PREVIEW)-->
 			<div class="ml-4">
 				<span class="inline-block align-text-top text-base text-gray-900 dark:text-gray-800"
-					>g/{{community.community_name}} | Posted by {{post.author }} {{post.date_posted}}
+					>g/{{community.community_name}} | Posted by u/{{post.author }} {{post.date_posted}}
 				</span>
 				<h2 class="flex text-2xl align-top font-bold mb-2 text-gray-800">{{post.title}}</h2>
 				<p class="text-gray-700">{{post.content}}</p>
@@ -32,4 +32,13 @@
 		</div>
 	</div>
 </section>
+
+<form action="{{url_for('community.create_comment', name=community.community_name, post_id = post.post_id)}}" method="POST" autocomplete="off">
+    <label for="description">Description</label>
+    <textarea name="description"></textarea>
+    <button type="submit" 							
+    class="inline-block px-7 py-3 border-2 border-blue-400 dark:border-violet-400 text-white font-medium text-sm leading-snug uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
+    data-mdb-ripple="true"
+    data-mdb-ripple-color="light">Submit</button>
+</form>
 {% endblock %}

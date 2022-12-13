@@ -42,9 +42,9 @@ CREATE TABLE IF NOT EXISTS post(
 CREATE TABLE IF NOT EXISTS comment(
     comment_id SERIAL NOT NULL,
     author VARCHAR(255) NOT NULL, 
-    date_posted VARCHAR(255) NOT NULL, 
+    date_posted TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     content VARCHAR(4096) NOT NULL, 
-    votes INT NOT NULL, 
+    votes INT DEFAULT 0, 
     post_id INT NOT NULL, 
     account_id INT NOT NULL, 
     PRIMARY KEY (comment_id),
