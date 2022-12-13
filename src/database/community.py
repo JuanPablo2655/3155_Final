@@ -14,9 +14,13 @@ class Community:
         community_name=community_name).first()
         return get_comm
 
+    def check_community(self, community_name):
+        community_object = CommunityModel.query.filter_by(community_name=community_name).first()
+        return community_object
+
     # Creates a new community
-    def create_community(self, community_name: str, description: str):
-        new_community = CommunityModel(community_name, description)
+    def create_community(self, community_title: str, description: str):
+        new_community = CommunityModel(community_title, description)
         db.session.add(new_community)
         db.session.commit()
 
@@ -26,7 +30,7 @@ class Community:
         db.session.commit()
 
     # Deletes a community from the database
-    def delete_community(community):
+    def delete_community(self, community):
         db.session.delete(community)
         db.session.commit()
 
