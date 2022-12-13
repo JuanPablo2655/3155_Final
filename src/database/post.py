@@ -8,9 +8,17 @@ class Post:
         posts = PostModel.query.join(Community, PostModel.community_id == Community.community_id).filter(Community.community_name == community_name).all()
         return posts
 
+    def get_post(self, post_id): 
+        post = PostModel.query.filter(PostModel.post_id == post_id).first()
+        return post 
+
+    def get_four_posts(self): 
+        recent_posts = PostModel.query.order_by(PostModel.post_id.desc()).limit(4).all()
+        return recent_posts
+
         # TODO: Add more methods to the post. Delete when done
-    def create_post(self, title, author, content, community_id, account_id): 
-        post = PostModel(title, author, content, community_id, account_id) 
+    def create_post(self, title, author, content, community_name, community_id, account_id): 
+        post = PostModel(title, author, content, community_name, community_id, account_id) 
         db.session.add(post)
         db.session.commit()
 
