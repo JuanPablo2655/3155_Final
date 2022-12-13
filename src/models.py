@@ -68,7 +68,7 @@ class Post(db.Model):
     account_id = db.Column(db.Integer, db.ForeignKey(
         'account.account_id'), nullable=False)
     # All the comments on this one post.
-    comments = db.relationship('Comment', backref='post', lazy=True)
+    comments = db.relationship('Comment', backref='post', lazy=True, cascade='all, delete-orphan')
     # Where the post belongs to in the community.
     community_id = db.Column(db.Integer, db.ForeignKey(
         'community.community_id'), nullable=False)
