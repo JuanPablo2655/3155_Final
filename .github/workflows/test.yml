@@ -8,10 +8,10 @@ jobs:
     steps:
       - name: Setup Postgres
         uses: CasperWA/postgresql-action@v1.2
-          with:
-            postgres password: test
-            postgresql db: test
-            postgresql init script: schema.sql
+        with:
+          postgres password: test
+          postgresql db: test
+          postgresql init script: schema.sql
       - name: Checkout repository
         uses: actions/checkout@v3
       - name: Set up Python 3.10
