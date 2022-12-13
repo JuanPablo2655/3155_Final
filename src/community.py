@@ -80,7 +80,7 @@ def get_specific_post(name, post_id):
 
     get_all_comments = comment_db.get_all_comment_from_post(post_id)
     
-    return render_template('post.html', community=community_obj, post=post, comment=get_all_comments)
+    return render_template('post.html', community=community_obj, post=post, comments=get_all_comments)
 
 @community_blueprint.route('/community/<string:name>/<int:post_id>', methods=['POST'])
 def create_comment(name, post_id): 
