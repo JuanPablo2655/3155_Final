@@ -1,4 +1,4 @@
-{% extends '_base.html' %}{% block body %}
+{% extends '_base.html' %}{% block title %}Community{% endblock %}{% block body %}
 <!-- HEADER SECTION -->
 <h1 class="text-center text-lg font-bold">{{community.community_name}}</h1>
 
@@ -26,6 +26,7 @@
 
 				<p class="text-center">0</p>
 			</div>
+			<a href="{{url_for('community.get_specific_post', name=community.community_name, post_id=post.post_id)}}">
 			<!-- POST CONTENT (PREVIEW)-->
 			<div class="ml-4">
 				<span
@@ -35,6 +36,7 @@
 				<h2 class="flex text-2xl align-top font-bold mb-2 text-gray-800">{{post.title}}</h2>
 				<p class="text-gray-700">{{post.content}}</p>
 			</div>
+			</a>
 		</div>
 	</div>
 </section>
