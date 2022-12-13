@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS account(
+CREATE TABLE account(
     account_id SERIAL NOT NULL, 
     user_name VARCHAR(255) NOT NULL, 
     full_Name VARCHAR(255) NOT NULL,
@@ -7,14 +7,14 @@ CREATE TABLE IF NOT EXISTS account(
     PRIMARY KEY (account_id)
 );
 
-CREATE TABLE IF NOT EXISTS community(
+CREATE TABLE community (
     community_id SERIAL NOT NULL, 
     community_name VARCHAR(255) NOT NULL,
     description VARCHAR(255) NOT NULL,
     PRIMARY KEY (community_id)
 );
 
-CREATE TABLE IF NOT EXISTS account_community(
+CREATE TABLE account_community(
     account_id INT, 
     community_id INT,
     PRIMARY KEY (account_id, community_id), 
@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS account_community(
     FOREIGN KEY (community_id) REFERENCES community(community_id)
 );
 
-CREATE TABLE IF NOT EXISTS post(
+CREATE TABLE post (
     post_id SERIAL NOT NULL, 
     title VARCHAR(255) NOT NULL, 
     author VARCHAR(255) NOT NULL, 
@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS post(
     FOREIGN KEY (community_id) REFERENCES community(community_id)
 );
 
-CREATE TABLE IF NOT EXISTS comment(
+CREATE TABLE comment (
     comment_id SERIAL NOT NULL,
     author VARCHAR(255) NOT NULL, 
     date_posted TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
