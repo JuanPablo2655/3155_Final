@@ -3,7 +3,10 @@ from src.models import db
 from src.config import postgres_uri, secret_key
 from src.security import bcrypt
 from src.authentication import auth
+from src.error import error
 from src.community import community_blueprint as community
+
+
 
 from src.database.account import account
 from src.database.post import post
@@ -19,6 +22,7 @@ bcrypt.init_app(app)
 
 app.register_blueprint(auth)
 app.register_blueprint(community)
+app.register_blueprint(error)
 
 
 @app.get("/")
@@ -31,10 +35,7 @@ def index():
 def about():
     return render_template("about.html")
 
-
 # USER PROFILE
-
-
 @app.route("/user")
 def user():
     id = session['user']['user_id']

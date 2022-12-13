@@ -3,7 +3,6 @@ from src.database.community import community as community_db
 from src.database.post import post as post_db
 from src.database.account import account as account_db
 from src.database.comment import comment as comment_db
-import datetime
 
 community_blueprint = Blueprint('community', __name__)
 
@@ -16,7 +15,10 @@ def communities():
 
 @community_blueprint.route('/community/form', methods=['GET', 'POST'])
 def create_community_form():
-    return render_template('create_community.html')
+    if 'user' not in session: 
+        return redirect('/login')
+    else: 
+        return render_template('create_community.html')
 
 
 @community_blueprint.route('/community/create', methods=['GET', 'POST'])
@@ -40,7 +42,7 @@ def create_community():
 #Name is community name
 @community_blueprint.route("/community/<string:name>", methods=['GET', 'POST'])
 def community(name):
-    
+
     community_obj = community_db.get_community(name)
     get_all_posts = post_db.get_posts(name)
 
@@ -54,6 +56,9 @@ def community(name):
 def create_post(name):
     community_obj = community_db.get_community(name)
 
+    if 'user' not in session: 
+        return redirect('/login')
+    
     if request.method == 'POST' and 'user' in session:
         title = request.form.get('title')
         content = request.form.get('description')
@@ -67,8 +72,6 @@ def create_post(name):
         post_db.create_post(
             title, author, content, community_name, account_id, community_id)
         return redirect(url_for('community.community', name=name))
-    else: 
-        redirect('/login')
 
     return render_template('create.html', community=community_obj)
 
@@ -78,8 +81,10 @@ def create_post(name):
 def get_specific_post(name, post_id): 
     community_obj = community_db.get_community(name)
     post = post_db.get_post(post_id)
-
-    get_all_comments = comment_db.get_all_comment_from_post(post_id)
+    if name != post.community_name:
+        abort(400, 'Bad request')
+    else: 
+        get_all_comments = comment_db.get_all_comment_from_post(post_id)
     
     return render_template('post.html', community=community_obj, post=post, comments=get_all_comments)
 
@@ -94,5 +99,6 @@ def create_comment(name, post_id):
         post_id = post_obj.post_id
         account_id = session['user']['user_id']
         new_comment = comment_db.create_new_comment(author, content, post_id, account_id)
-    return redirect(f'/community/{community_obj.community_name}/{post_id}')
-    #return render_template(url_for('community.get_specific_post', name=name, post_id=post_id))
+        return redirect(f'/community/{community_obj.community_name}/{post_id}')
+    else: 
+        return redirect('/login')
