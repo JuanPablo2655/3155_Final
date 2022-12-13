@@ -6,6 +6,12 @@ jobs:
     name: Unit Testing
     runs-on: ubuntu-latest
     steps:
+      - name: Setup Postgres
+        uses: CasperWA/postgresql-action@v1.2
+          with:
+            postgres password: test
+            postgresql db: test
+            postgresql init script: schema.sql
       - name: Checkout repository
         uses: actions/checkout@v3
       - name: Set up Python 3.10
@@ -20,4 +26,4 @@ jobs:
           pip install -r requirements.txt
       - name: Test with pytest
         run: |
-          CI=true pytest
+          CI=true POSTGRES_URI=postgresql://postgres:test@localhost:5432/test pytest
