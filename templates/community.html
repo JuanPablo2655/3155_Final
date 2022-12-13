@@ -1,18 +1,37 @@
 {% extends '_base.html' %}{% block title %}Community{% endblock %}{% block body %}
 <!-- HEADER SECTION -->
-<h1 class="text-center text-lg font-bold">{{community.community_name}}</h1>
+<div class="flex justify-center">
+	<div class="flex justify-between w-3/4 border-b border-gray-200 dark:border-gray-700 pb-6 pt-6">
+		<div class="flex flex-col">
+			<h1 class="dark:text-white">{{community.community_name}}</h1>
+			<h1 class="dark:text-white">{{community.description}}</h1>
+		</div>
 
-<form action="{{ url_for('community.create_post', name=community.community_name)}}">
-	<button action="submit">Submit</button>
-</form>
+		<!--Create communities -->
+		{% if session %}
+		<form action="{{ url_for('community.create_post', name=community.community_name)}}">
+			<button action="submit"
+				class="flex items-center gap-x-2 justify-between text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3 md:mr-0 dark:focus:ring-blue-800 dark:bg-violet-400 dark:text-gray-900 dark:hover:bg-violet-500">CREATE
+				NEW POST
+				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+					class="bi bi-plus-circle" viewBox="0 0 16 16">
+					<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+					<path
+						d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+				</svg></a>
+			</button>
+		</form>
+		{% endif %}
+	</div>
+</div>
 
 {% if not posts %}
 <p>Go in and make a post</p>
 {% else %}
 
 {% for post in posts|reverse %}
-<section class="h-full relative dark:bg-gray-900 flex flex-col">
-	<div class="slide-top p-10">
+<div class="h-full relative dark:bg-gray-900 flex flex-col justify-center">
+	<div class="w-3/4 slide-top p-10 ">
 		<div class="flex flex-row bg-white p-6 rounded-lg shadow-lg">
 			<!-- UPVOTE -->
 			<div>
@@ -39,7 +58,7 @@
 			</a>
 		</div>
 	</div>
-</section>
+</div>
 {% endfor %}
 
 
