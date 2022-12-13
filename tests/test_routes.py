@@ -22,7 +22,7 @@ def test_no_communities(test_app: FlaskClient):
 
     assert response.status_code == 200
     assert '<a>' not in page_data
-    assert '<p>It looks empty, lets make a community!</p>' in page_data
+    assert '<p>' not in page_data
 
 
 
