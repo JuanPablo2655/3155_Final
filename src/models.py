@@ -62,6 +62,7 @@ class Post(db.Model):
     author = db.Column(db.String, nullable=False)
     content = db.Column(db.String, nullable=False)
     date_posted = db.Column(db.DateTime, nullable=True, default=datetime.datetime.utcnow)
+    community_name = db.Column(db.String, nullable=False)
     votes = db.Column(db.Integer, nullable=True, default=0)
     # references the foreign key of the account id. In other words, who it belongs to
     account_id = db.Column(db.Integer, db.ForeignKey(
@@ -72,12 +73,13 @@ class Post(db.Model):
     community_id = db.Column(db.Integer, db.ForeignKey(
         'community.community_id'), nullable=False)
 
-    def __init__(self, title: str, author: str, content: str, account_id: int, community_id: int):
+    def __init__(self, title: str, author: str, content: str, community_name: str,account_id: int, community_id: int):
         self.title = title
         self.author = author
         self.content = content
         self.account_id = account_id
         self.community_id = community_id
+        self.community_name = community_name
 
 
 class Comment(db.Model):

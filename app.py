@@ -6,6 +6,7 @@ from src.authentication import auth
 from src.community import community_blueprint as community
 
 from src.database.account import account
+from src.database.post import post
 
 app = Flask(__name__)
 app.secret_key = secret_key
@@ -22,7 +23,8 @@ app.register_blueprint(community)
 
 @app.get("/")
 def index():
-    return render_template("index.html")
+    recent_posts = post.get_four_posts()
+    return render_template("index.html", recent_posts=recent_posts)
 
 
 @app.get('/about')

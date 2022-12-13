@@ -22,7 +22,7 @@ def create_community_form():
 @community_blueprint.route('/community/create', methods=['GET', 'POST'])
 def create_community():
     if request.method == 'POST':
-        name = request.form.get('name')
+        name = str(request.form.get('name')).strip()
         description = request.form.get('description')
         community_object = community_db.check_community(name)
 
@@ -59,12 +59,13 @@ def create_post(name):
         content = request.form.get('description')
         author = session['user']['username']
         account_id = session['user']['user_id']
+        community_name = name
         community_id = community_obj.community_id
 
         if title == '' or content == '' or 'user' not in session:
             abort(400)
         post_db.create_post(
-            title, author, content, community_id, account_id)
+            title, author, content, community_name, account_id, community_id)
         return redirect(url_for('community.community', name=name))
     else: 
         redirect('/login')
