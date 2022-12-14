@@ -1,6 +1,8 @@
 from flask.testing import FlaskClient
 
-from src.models import Community
+from src.models import Community, Account, db
+from src.security import bcrypt
+from src.config import bcrypt_rounds
 from tests.utils import refresh_db, create_community, create_user, create_post, create_comment
 
 #Tests communities page
@@ -30,7 +32,7 @@ def test_get_single_community(test_app: FlaskClient):
     refresh_db()
     test_community = create_community()
 
-    response = test_app.get(f'/community/{test_community.community_name}')
+    response = test_app.get(f'/community/{test_community.slug}')
     page_data: str = response.data.decode()
 
     assert response.status_code == 200
@@ -43,7 +45,7 @@ def test_get_post(test_app: FlaskClient):
     test_user = create_user()
     test_post = create_post(community_id=test_community.community_id, account_id=test_user.account_id)
 
-    response = test_app.get(f'/community/{test_community.community_name}')
+    response = test_app.get(f'/community/{test_community.slug}')
     page_data: str = response.data.decode()
 
     assert response.status_code == 200
@@ -76,7 +78,7 @@ def test_get_comment(test_app: FlaskClient):
     test_post = create_post(community_id=test_community.community_id, account_id=test_user_1.account_id)
     test_comment = create_comment(author = test_user2.user_name, post_id=test_post.post_id, account_id= test_user2.account_id)
 
-    response = test_app.get(f'/community/{test_community.community_name}/{test_post.post_id}')
+    response = test_app.get(f'/community/{test_community.slug}/{test_post.post_id}')
     page_data: str = response.data.decode()
 
     assert response.status_code == 200
@@ -91,3 +93,53 @@ def test_get_comment(test_app: FlaskClient):
     #Makes sure the comment content is there
     assert 'I do not agree sir...' in page_data
 
+def test_get_login(test_app: FlaskClient): 
+    response = test_app.get('/login')
+    page_data: str = response.data.decode()
+
+    assert response is not None 
+    assert response.status_code == 200 
+    page_data = response.data.decode()
+
+    assert 'Login' in page_data
+
+def test_get_register(test_app: FlaskClient): 
+    response = test_app.get('/register?')
+    page_data: str = response.data.decode()
+
+    assert response is not None 
+    assert response.status_code == 200 
+    page_data = response.data.decode()
+
+    assert 'Create an account' in page_data
+
+def test_post_register(test_app: FlaskClient): 
+    response = test_app.post(
+        "/register", 
+        data = {
+            "username": "mockusername1234",
+            "name": "Mock Name", 
+            "email": "mockemail@gmail.com",
+            "password": "password123", 
+            "confirm_password": "password123"
+        }, 
+        follow_redirects=True
+    )
+    assert response is not None
+
+def test_post_login(test_app: FlaskClient): 
+    password = "mockpassword123"
+    hashed_bytes = bcrypt.generate_password_hash(password, bcrypt_rounds)
+    hashed_password = hashed_bytes.decode('utf-8')
+    app_user = Account(user_name='mockusernamenw123', full_name='Mock name', gaming_password=hashed_password, email='Email@uncc.edu')
+    db.session.add(app_user)
+    db.session.commit()
+
+    response = test_app.post(
+        "/login",
+        data={"username": app_user.user_name, "password": hashed_password},
+        follow_redirects=True,
+    )
+
+    assert response is not None
+    assert response.status_code == 200
