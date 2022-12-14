@@ -28,7 +28,7 @@
 <section class="h-full relative dark:bg-gray-900 flex flex-col">
 	<div class="slide-top p-10">
 		<div class="flex flex-row bg-white p-6 rounded-lg shadow-lg">
-
+			{% if (session) and post.account_id == session['user']['user_id']%}
 			<div>
 			<!-- EDIT -->
 			<form action="{{url_for('community.edit_post', name=post.community_name, post_id=post.post_id)}}">
@@ -57,6 +57,7 @@
 				</button>
 			</form>
 			</div>
+			{% endif %}
 			<!--community/{{post.community_name}}/{{post.post_id}}-->
 			<a href="/community/{{post.community_name}}/{{post.post_id}}">
 				<!-- POST CONTENT (PREVIEW)-->
