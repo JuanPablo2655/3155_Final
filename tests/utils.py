@@ -5,6 +5,7 @@ def refresh_db():
     Comment.query.delete()
     Post.query.delete()
     Community.query.delete()
+    Account.query.delete()
     db.session.commit()
 
 

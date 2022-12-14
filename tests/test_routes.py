@@ -113,11 +113,25 @@ def test_get_register(test_app: FlaskClient):
 
     assert 'Create an account' in page_data
 
+def test_post_register(test_app: FlaskClient): 
+    response = test_app.post(
+        "/register", 
+        data = {
+            "username": "mockusername1234",
+            "name": "Mock Name", 
+            "email": "mockemail@gmail.com",
+            "password": "password123", 
+            "confirm_password": "password123"
+        }, 
+        follow_redirects=True
+    )
+    assert response is not None
+
 def test_post_login(test_app: FlaskClient): 
     password = "mockpassword123"
-    hashed_bytes = bcrypt.generate_password_hash(password, 10)
+    hashed_bytes = bcrypt.generate_password_hash(password, bcrypt_rounds)
     hashed_password = hashed_bytes.decode('utf-8')
-    app_user = Account(user_name='mockusernam123', full_name='Mock name', gaming_password=hashed_password, email='Email@uncc.edu')
+    app_user = Account(user_name='mockusernamenw123', full_name='Mock name', gaming_password=hashed_password, email='Email@uncc.edu')
     db.session.add(app_user)
     db.session.commit()
 
