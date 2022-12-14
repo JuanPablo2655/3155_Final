@@ -172,6 +172,9 @@ def test_get_all_communities(test_app: FlaskClient):
             "password": hashed_password
         }, follow_redirects=True
     )
+    test_user = Account(user_name="mockusername1234", full_name="Mock Name", gaming_password = hashed_password, email = "mockemail@gmail.com")
+    db.session.add(test_user)
+    db.session.commit()
 
     test_community = Community(slug='Fortnite', community_name='Fortnite', description='Super awesome epic game I love Fortnite!', account_id=account_db.check_username("mockusername1234").account_id)
     db.session.add(test_community)
@@ -198,6 +201,9 @@ def test_get_single_community(test_app: FlaskClient):
             "password": hashed_password
         }, follow_redirects=True
     )
+    test_user = Account(user_name="mockusername1234", full_name="Mock Name", gaming_password = hashed_password, email = "mockemail@gmail.com")
+    db.session.add(test_user)
+    db.session.commit()
 
     test_community = Community(slug='Fortnite', community_name='Fortnite', description='Super awesome epic game I love Fortnite!', account_id=account_db.check_username("mockusername1234").account_id)
     db.session.add(test_community)
@@ -263,6 +269,10 @@ def test_get_post(test_app: FlaskClient):
             "password": hashed_password
         }, follow_redirects=True
     )
+    test_user = Account(user_name="mockusername1234", full_name="Mock Name", gaming_password = hashed_password, email = "mockemail@gmail.com")
+    db.session.add(test_user)
+    db.session.commit()
+
     test_community = Community(slug='Fortnite', community_name='Fortnite', description='Super awesome epic game I love Fortnite!', account_id=account_db.check_username("mockusername1234").account_id)
     db.session.add(test_community)
     db.session.commit()
@@ -292,6 +302,11 @@ def test_get_comment(test_app: FlaskClient):
             "password": hashed_password
         }, follow_redirects=True
     )
+        
+    test_user = Account(user_name="mockusername1234", full_name="Mock Name", gaming_password = hashed_password, email = "mockemail@gmail.com")
+    db.session.add(test_user)
+    db.session.commit()
+
     test_community = Community(slug='Fortnite', community_name='Fortnite', description='Super awesome epic game I love Fortnite!', account_id=account_db.check_username("mockusername1234").account_id)
     db.session.add(test_community)
     db.session.commit()

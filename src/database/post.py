@@ -13,6 +13,10 @@ class Post:
         post = PostModel.query.filter(PostModel.post_id == post_id).first()
         return post
 
+    def check_post(self, title):
+        post = PostModel.query.filter(PostModel.title == title).first()
+        return post
+        
     def get_four_posts(self):
         recent_posts = PostModel.query.order_by(
             PostModel.post_id.desc()).limit(4).all()
