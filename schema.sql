@@ -14,7 +14,9 @@ CREATE TABLE IF NOT EXISTS community(
     community_id SERIAL NOT NULL, 
     community_name VARCHAR(255) NOT NULL,
     description VARCHAR(255) NOT NULL,
-    PRIMARY KEY (community_id)
+    account_id INT NOT NULL, 
+    PRIMARY KEY (community_id),
+    FOREIGN KEY (account_id) REFERENCES account(account_id)
 );
 
 CREATE TABLE IF NOT EXISTS account_community(

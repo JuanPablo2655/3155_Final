@@ -13,13 +13,6 @@ class Game(db.Model):
         self.title = title
         self.genre = genre
 
-#many to many relationship 
-communities = db.Table('account_community',
-                       db.Column('community_id', db.Integer, db.ForeignKey(
-                           'community.community_id'), primary_key=True),
-                       db.Column('account_id', db.Integer, db.ForeignKey(
-                           'account.account_id'), primary_key=True),
-                       )
 
 
 class Account(db.Model):
@@ -33,8 +26,7 @@ class Account(db.Model):
     # One to many relationship. Represents all of the comments that the author has made.
     comments = db.relationship('Comment', backref='account', lazy=True)
     # Makes a subquery to the Community Table and then makes all of the posts regarding to that community
-    communities = db.relationship('Community', secondary=communities, lazy='subquery',
-                                  backref=db.backref('accounts', lazy=True))
+    communities = db.relationship('Community', backref='account', lazy=True)
 
     def __init__(self, user_name: str, full_name: str, gaming_password: str, email: str):
         self.user_name = user_name
@@ -47,13 +39,17 @@ class Community(db.Model):
     community_id = db.Column(db.Integer, primary_key=True)
     community_name = db.Column(db.String, nullable=True)
     description = db.Column(db.String, nullable=True)
+    account_id = db.Column(db.Integer, db.ForeignKey(
+        'account.account_id'), nullable=False)
     # Needs a user id
     # Many posts belong to a single community
-    posts = db.relationship('Post', backref='community', lazy=True)
+    posts = db.relationship('Post', backref='community', lazy=True, cascade='all, delete-orphan')
 
-    def __init__(self, community_name: str, description: str):
+
+    def __init__(self, community_name: str, description: str, account_id: str):
         self.community_name = community_name
         self.description = description
+        self.account_id = account_id
 
 
 class Post(db.Model):
@@ -68,7 +64,7 @@ class Post(db.Model):
     account_id = db.Column(db.Integer, db.ForeignKey(
         'account.account_id'), nullable=False)
     # All the comments on this one post.
-    comments = db.relationship('Comment', backref='post', lazy=True)
+    comments = db.relationship('Comment', backref='post', lazy=True, cascade='all, delete-orphan')
     # Where the post belongs to in the community.
     community_id = db.Column(db.Integer, db.ForeignKey(
         'community.community_id'), nullable=False)
