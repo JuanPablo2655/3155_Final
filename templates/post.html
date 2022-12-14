@@ -1,5 +1,5 @@
 {% extends '_base.html' %} {% block title %}Post{% endblock %}Post{% block body %}
-<section class="flex h-full flex-col items-start content-start">
+<section class="flex h-auto flex-col items-start content-start">
 	<section class="w-full relative dark:bg-gray-900 flex flex-col pt-10 pb-10">
 		<div class="slide-top px-10">
 			<div class="flex dark:text-white flex-row bg-white p-6 rounded-lg shadow-lg bg-white dark:bg-gray-800">
@@ -50,7 +50,7 @@
 		</div>
 	</section>
 
-	<div class="antialiased mx-auto w-screen px-10">
+	<div class="h-auto antialiased mx-auto w-screen px-10 bg-white dark:bg-gray-900">
 		<h3 class="mb-4 text-lg font-semibold text-gray-900 dark:text-white">Comments</h3>
 		<!-- CREATE A COMMENT -->
 		<div
