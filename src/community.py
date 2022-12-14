@@ -24,7 +24,9 @@ def create_community_form():
 @community_blueprint.route('/community/create', methods=['GET', 'POST'])
 def create_community():
     if request.method == 'POST':
-        name = str(request.form.get('name')).strip()
+        name = request.form.get('name')
+        no_space_name = ''.join(name.split())
+        print(no_space_name)
         description = request.form.get('description')
         community_object = community_db.check_community(name)
         account_id = session['user']['user_id']
@@ -35,7 +37,7 @@ def create_community():
         else:
             if name == '' or description == '':
                 abort(400)
-        community_db.create_community(name, description, account_id)
+        community_db.create_community(no_space_name, description, account_id)
         return redirect(url_for('community.communities'))
     else:
         return render_template('communities.html')
