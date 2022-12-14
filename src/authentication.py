@@ -82,5 +82,8 @@ def register():
 
 @auth.get('/logout')
 def logout():
-    session.pop('user')
-    return redirect('/')
+    if 'user' not in session: 
+        return redirect('/login')
+    else: 
+        session.pop('user')
+        return redirect('/')
