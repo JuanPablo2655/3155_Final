@@ -1,31 +1,26 @@
 {% extends '_base.html' %} {% block title %}Post{% endblock %}Post{% block body %}
-<section class="h-full relative dark:bg-gray-900 flex flex-col">
-	<div class="slide-top p-10">
+<section class="relative dark:bg-gray-900 flex flex-col">
+	<div class="slide-top px-10">
 		<div class="flex flex-row bg-white p-6 rounded-lg shadow-lg">
 			<!-- UPVOTE -->
 			<div>
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					fill="none"
-					viewBox="0 0 24 24"
-					stroke-width="1.5"
-					stroke="currentColor"
-					class="w-6 h-6"
-				>
-					<path
-						stroke-linecap="round"
-						stroke-linejoin="round"
-						d="M15 11.25l-3-3m0 0l-3 3m3-3v7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-					/>
-				</svg>
-
-				<p class="text-center">0</p>
+				<form action="{{url_for('community.delete_post', name=post.community_id, post_id=post.post_id)}}" method="POST">
+					<button type="submit">
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash"
+						viewBox="0 0 16 16">
+						<path
+							d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+						<path fill-rule="evenodd"
+							d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+					</svg>
+					</button>
 			</div>
-			
+
 			<!-- POST CONTENT (PREVIEW)-->
 			<div class="ml-4">
-				<span class="inline-block align-text-top text-base text-gray-900 dark:text-gray-800"
-					>g/{{post.community_name}} | Posted by u/{{post.author }} {{post.date_posted}}
+				<span
+					class="inline-block align-text-top text-base text-gray-900 dark:text-gray-800">g/{{post.community_name}}
+					| Posted by u/{{post.author }} {{post.date_posted}}
 				</span>
 				<h2 class="flex text-2xl align-top font-bold mb-2 text-gray-800">{{post.title}}</h2>
 				<p class="text-gray-700">{{post.content}}</p>
@@ -34,64 +29,51 @@
 	</div>
 </section>
 
-<!--COMMENT SECTION-->
-
-{% for comment in comments %}
-<section class="h-full relative dark:bg-gray-900 flex flex-col">
-	<div class="slide-top p-10">
-		<div class="flex flex-row bg-white p-6 rounded-lg shadow-lg">
-			<!-- UPVOTE -->
-			<div>
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					fill="none"
-					viewBox="0 0 24 24"
-					stroke-width="1.5"
-					stroke="currentColor"
-					class="w-6 h-6"
-				>
-					<path
-						stroke-linecap="round"
-						stroke-linejoin="round"
-						d="M15 11.25l-3-3m0 0l-3 3m3-3v7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-					/>
-				</svg>
-
-				<p class="text-center">0</p>
+<div class="antialiased mx-auto w-screen px-10">
+	<h3 class="mb-4 text-lg font-semibold text-gray-900 dark:text-white">Comments</h3>
+	<!-- CREATE A COMMENT -->
+	<div
+		class="block px-6 pt-6 pb-3 rounded-lg shadow-lg bg-white w-scren h-auto bg-white rounded-lg shadow dark:border dark:bg-gray-800 dark:border-gray-700">
+		<form action="{{url_for('community.create_comment', name=community.community_name, post_id = post.post_id)}}"
+			method="POST" autocomplete="off">
+			<div class="form-group mb-6 flex flex-col">
+				<input type="text"
+					class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+					id="exampleInput7" name="description" placeholder="Tell us your thoughts...">
+				<button type="submit"
+					class="w-1/6 mt-3 justify-items-end text-white bg-blue-700 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-violet-400 dark:text-gray-900 dark:hover:bg-violet-500 dark:focus:ring-primary-800">Post
+					Comment</button>
 			</div>
-			<!-- POST CONTENT (PREVIEW)-->
-			<div class="ml-4">
-				<span class="inline-block align-text-top text-base text-gray-900 dark:text-gray-800"
-					>Posted by u/{{comment.author }} {{comment.date_posted}}
-				</span>
-				<p class="text-gray-700">{{comment.content}}</p>
+		</form>
+	</div>
+
+	<!--COMMENT SECTION-->
+	{% for comment in comments %}
+	<!-- TEST COMMENT -->
+	<div class="space-y-4 pt-6">
+		<div class="flex">
+			<div
+				class="flex-1 border rounded-lg px-4 py-2 sm:px-6 sm:py-4 leading-relaxed dark:text-white shadow-lg bg-white w-scren h-auto bg-white rounded-lg shadow dark:border dark:bg-gray-800 dark:border-gray-700">
+				<div>
+					<form action="{{url_for('community.delete_comment', name=post.community_id, post_id=post.post_id, comment_id=comment.comment_id)}}" method="POST">
+						<button type="submit">
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash"
+							viewBox="0 0 16 16">
+							<path
+								d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+							<path fill-rule="evenodd"
+								d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+						</svg>
+						</button>
+				</div>
+				<strong>u/{{comment.author}}</strong><span class="text-xs text-gray-400 dark:text-white">
+					{{comment.date_posted}}</span>
+				<p class="text-sm">
+					{{comment.content}}
+				</p>
 			</div>
 		</div>
 	</div>
-</section>
-{% endfor %}
-<div
-        class="block p-6 rounded-lg shadow-lg bg-white w-1/4 h-auto bg-white rounded-lg shadow dark:border max-w-md dark:bg-gray-800 dark:border-gray-700">
-        <form action="{{url_for('community.create_comment', name=community.community_name, post_id = post.post_id)}}" method="POST" autocomplete="off">
-            <div class="form-group mb-6 flex flex-col">
-                <input type="text"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    id="exampleInput7" name="description" rows="3" placeholder="Tell us your thoughts...">
-                <button type="submit"
-                    class="w-1/3 mt-3 justify-items-end text-white bg-blue-700 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-violet-400 dark:text-gray-900 dark:hover:bg-violet-500 dark:focus:ring-primary-800">Post
-                    Comment</button>
-            </div>
-        </form>
-    </div>
-
-<!--
-<form action="{{url_for('community.create_comment', name=community.community_name, post_id = post.post_id)}}" method="POST" autocomplete="off">
-    <label for="description">Description</label>
-    <textarea name="description"></textarea>
-    <button type="submit" 							
-    class="inline-block px-7 py-3 border-2 border-blue-400 dark:border-violet-400 text-white font-medium text-sm leading-snug uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
-    data-mdb-ripple="true"
-    data-mdb-ripple-color="light">Submit</button>
-</form>
--->
+	{% endfor %}
+</div>
 {% endblock %}
