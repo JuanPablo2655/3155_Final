@@ -26,7 +26,6 @@ def create_community():
     if request.method == 'POST':
         name = request.form.get('name')
         no_space_name = ''.join(name.split())
-        print(no_space_name)
         description = request.form.get('description')
         community_object = community_db.check_community(name)
         account_id = session['user']['user_id']
