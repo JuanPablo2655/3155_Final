@@ -5,6 +5,7 @@ from src.database.account import account as account_db
 from src.database.comment import comment as comment_db
 
 community_blueprint = Blueprint('community', __name__)
+post = ''
 
 
 @community_blueprint.get('/communities')
@@ -15,7 +16,7 @@ def communities():
 
 @community_blueprint.route('/community/form', methods=['GET', 'POST'])
 def create_community_form():
-    if 'user' not in session:
+    if not session:
         return redirect('/login')
     else:
         return render_template('create_community.html')
@@ -59,7 +60,7 @@ def community(slug):
 def create_post(slug):
     community_obj = community_db.get_community(slug)
 
-    if 'user' not in session:
+    if not session:
         return redirect('/login')
 
     if request.method == 'POST' and 'user' in session:
@@ -82,7 +83,7 @@ def create_post(slug):
 
 @community_blueprint.post('/community/<string:slug>/<int:post_id>/delete')
 def delete_post(post_id, slug):
-    if 'user' not in session:
+    if not session:
         return redirect('/login')
     else:
         post = post_db.get_post(post_id)
@@ -127,10 +128,10 @@ def create_comment(slug, post_id):
 
 @community_blueprint.route('/community/<string:slug>/<int:post_id>/edit', methods=['GET', 'POST'])
 def edit_post(slug, post_id):
-    if 'user' not in session:
+    post = post_db.get_post(post_id)
+    if not session:
         redirect('/login')
     else:
-        post = post_db.get_post(post_id)
         if request.method == 'POST' and 'user' in session and post.account_id == session['user']['user_id']:
             title = request.form.get('title')
             content = request.form.get('content')
@@ -142,7 +143,7 @@ def edit_post(slug, post_id):
 @community_blueprint.post('/community/<string:slug>/<int:post_id>/comment/<int:comment_id>/delete')
 def delete_comment(slug, post_id, comment_id):
     post = post_db.get_post(post_id)
-    if 'user' not in session:
+    if not session:
         return redirect('/login')
     else:
         comment = comment_db.get_comment(comment_id)
@@ -159,7 +160,7 @@ def delete_comment(slug, post_id, comment_id):
 @community_blueprint.route('/community/<string:slug>/<int:post_id>/comment/<int:comment_id>/edit', methods=['GET', 'POST'])
 def edit_comment(slug, post_id, comment_id):
     post = post_db.get_post(post_id)
-    if 'user' not in session:
+    if not session:
         redirect('/login')
     else:
         comment = comment_db.get_comment(comment_id)
@@ -173,7 +174,7 @@ def edit_comment(slug, post_id, comment_id):
 @community_blueprint.route('/community/<string:slug>/edit', methods=['GET', 'POST'])
 def edit_community(slug):
     community = community_db.check_community(slug)
-    if 'user' not in session:
+    if not session:
         redirect('/login')
     else:
         community = community_db.check_community(slug)
@@ -186,7 +187,7 @@ def edit_community(slug):
 
 @community_blueprint.post('/community/<string:slug>/delete')
 def delete_community(slug):
-    if 'user' not in session:
+    if not session:
         return redirect('/login')
     else:
         community = community_db.check_community(slug)
