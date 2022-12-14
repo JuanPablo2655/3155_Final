@@ -25,3 +25,9 @@ def create_post(title = 'Fortnite C4', author = 'xxflash', content = 'I love thi
     db.session.add(test_post)
     db.session.commit()
     return test_post
+
+def create_comment(author = 'author', content = 'I do not agree sir...', post_id:int = 1, account_id:int = 1) -> Comment:
+    test_comment = Comment(author = author, content = content, post_id= post_id, account_id = account_id)
+    db.session.add(test_comment)
+    db.session.commit()
+    return test_comment
