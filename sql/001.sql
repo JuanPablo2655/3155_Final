@@ -49,3 +49,5 @@ CREATE TABLE comment (
     FOREIGN KEY (post_id) REFERENCES post(post_id),
     FOREIGN KEY (account_id) REFERENCES account(account_id)
 );
+
+INSERT INTO community VALUES (1, 'communty', 'communty description');
