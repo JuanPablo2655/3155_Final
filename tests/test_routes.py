@@ -1,6 +1,8 @@
 from flask.testing import FlaskClient
 
-from src.models import Community
+from src.models import Community, Account, db
+from src.security import bcrypt
+from src.config import bcrypt_rounds
 from tests.utils import refresh_db, create_community, create_user, create_post, create_comment
 
 #Tests communities page
@@ -111,3 +113,19 @@ def test_get_register(test_app: FlaskClient):
 
     assert 'Create an account' in page_data
 
+def test_post_login(test_app: FlaskClient): 
+    password = "mockpassword123"
+    hashed_bytes = bcrypt.generate_password_hash(password, 10)
+    hashed_password = hashed_bytes.decode('utf-8')
+    app_user = Account(user_name='mockusernam123', full_name='Mock name', gaming_password=hashed_password, email='Email@uncc.edu')
+    db.session.add(app_user)
+    db.session.commit()
+
+    response = test_app.post(
+        "/login",
+        data={"username": app_user.user_name, "password": hashed_password},
+        follow_redirects=True,
+    )
+
+    assert response is not None
+    assert response.status_code == 200
