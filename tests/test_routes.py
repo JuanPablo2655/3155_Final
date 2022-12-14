@@ -56,7 +56,7 @@ def get_no_posts(test_app: FlaskClient):
     test_community = create_community()
     test_user = create_user()
 
-    response = test_app.get(f'/community/{test_community.slug}')
+    response = test_app.get(f'/community/{test_community.community_name}')
     page_data: str = response.data.decode()
 
     #Makes sure there it's in the right community
