@@ -25,7 +25,7 @@ class Community:
         db.session.commit()
 
     # Update a community description in the database
-    def update_community(self, community: str, description: str):
+    def update_community(self, community, description: str):
         community.description = description
         db.session.commit()
 
