@@ -71,11 +71,6 @@ def register():
                 hashed_password = hashed_bytes.decode('utf-8')
                 new_account = account.create_user_account(
                     user_name, fullname, hashed_password, email)
-                # Make sure everything is here. DELETE in the final product.
-                print(fullname)
-                print(email)
-                print(user_name)
-                print(password)
                 return render_template("login.html")
     return render_template("register.html")
 
