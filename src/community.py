@@ -159,6 +159,31 @@ def edit_comment(name, post_id, comment_id):
             return redirect(url_for('community.get_specific_post', name=name, post_id=comment.post_id))
     return render_template('edit_comment.html', comment=comment, post=post)
 
+@community_blueprint.route('/community/<string:name>/edit', methods=['GET', 'POST'])
+def edit_community(name): 
+    community=community_db.check_community(name)
+    if 'user' not in session: 
+        redirect('/login')
+    else: 
+        community=community_db.check_community(name)
+        if request.method == 'POST' and 'user' in session and community.account_id == session['user']['user_id']: 
+            description = request.form.get('description')
+            community_db.update_community(community, description)
+            return redirect('/communities')
+    return render_template('edit_community.html', community=community)
+
+@community_blueprint.post('/community/<string:name>/delete')
+def delete_community(name):
+    if 'user' not in session: 
+        return redirect('/login')
+    else: 
+        community = community_db.check_community(name) 
+    if community: 
+        if community.account_id != session['user']['user_id']: 
+            return redirect('/communities')
+        community_db.delete_community(community)
+        return redirect('/communities')
+
 
 
     
