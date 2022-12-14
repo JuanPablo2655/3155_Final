@@ -190,6 +190,9 @@ def test_get_all_communities(test_app: FlaskClient):
 #Tests getting a community page
 def test_get_single_community(test_app: FlaskClient):
     refresh_db()
+    test_user = Account(user_name="mockusername1234", full_name="Mock Name", gaming_password = hashed_password, email = "mockemail@gmail.com")
+    db.session.add(test_user)
+    db.session.commit()
     #Get account
     password = "password123"
     bytes = bcrypt.generate_password_hash(password, bcrypt_rounds)
@@ -201,11 +204,8 @@ def test_get_single_community(test_app: FlaskClient):
             "password": hashed_password
         }, follow_redirects=True
     )
-    test_user = Account(user_name="mockusername1234", full_name="Mock Name", gaming_password = hashed_password, email = "mockemail@gmail.com")
-    db.session.add(test_user)
-    db.session.commit()
 
-    test_community = Community(slug='Fortnite', community_name='Fortnite', description='Super awesome epic game I love Fortnite!', account_id=account_db.check_username("mockusername1234").account_id)
+    test_community = Community(slug='Fortnite', community_name='Fortnite', description='Super awesome epic game I love Fortnite!', account_id=test_user.account_id)
     db.session.add(test_community)
     db.session.commit()
 
@@ -244,6 +244,9 @@ def test_get_single_community(test_app: FlaskClient):
             "password": hashed_password
         }, follow_redirects=True
     )
+    test_user = Account(user_name="mockusername1234", full_name="Mock Name", gaming_password = hashed_password, email = "mockemail@gmail.com")
+    db.session.add(test_user)
+    db.session.commit()
 
     test_community = Community(slug='Fortnite', community_name='Fortnite', description='Super awesome epic game I love Fortnite!', account_id=account_db.check_username("mockusername1234").account_id)
     db.session.add(test_community)
@@ -340,3 +343,4 @@ def test_get_comment(test_app: FlaskClient):
     assert 'fortnite_haterxx' in page_data
     #Makes sure the comment content is there
     assert 'I do not agree sir...' in page_data
+
