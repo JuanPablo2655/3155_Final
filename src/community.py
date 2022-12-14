@@ -132,5 +132,42 @@ def delete_comment(name, post_id, comment_id):
     else: 
         abort(404)
 
+@community_blueprint.route('/community/<string:name>/<int:post_id>/edit', methods=['GET', 'POST'])
+def edit_post(name, post_id): 
+    if 'user' not in session: 
+        redirect('/login')
+    else: 
+        post = post_db.get_post(post_id)
+        if request.method == 'POST' and 'user' in session and post.account_id == session['user']['user_id']: 
+            title = request.form.get('title')
+            content = request.form.get('content')
+            post_db.update_post(post, title, content)
+            return redirect(url_for('community.get_specific_post', name=name, post_id=post_id))
+    return render_template('edit_post.html', post=post)
+
+
+    """
+    post = post_db.get_post(post_id) 
+    if 'user' not in session: 
+        return redirect('/login')
+    else: 
+        if post: 
+            if request.method == 'POST' and post.account_id == session['user']['user_id']: 
+                new_title = request.form.get('title')
+                new_content = request.form.get('content')
+                post_db.update_post(post, new_title, new_content)
+            else: 
+                  return render_template('edit_post.html')
+        else: 
+            abort(404)
+            """
+
+
+
+
+
+
+    return render_template('index.html')
+
 
     
