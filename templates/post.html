@@ -6,7 +6,7 @@
 				<!-- DELETE AND EDIT -->
 				{% if (session) and post.account_id == session['user']['user_id']%}
 				<div>
-					<form action="{{url_for('community.delete_post', name=post.community_name, post_id=post.post_id)}}"
+					<form action="{{url_for('community.delete_post', slug=post.community_slug, post_id=post.post_id)}}"
 						method="POST">
 						<button type="submit">
 							<svg class="dark:hidden" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -21,7 +21,7 @@
 							</svg>
 						</button>
 					</form>
-					<form action="{{url_for('community.edit_post', name=post.community_name, post_id=post.post_id)}}">
+					<form action="{{url_for('community.edit_post', slug=post.community_slug, post_id=post.post_id)}}">
 						<button type="submit">
 							<svg class="dark:hidden" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
 								fill="black" class="bi bi-pencil-fill" viewBox="0 0 16 16">
@@ -40,7 +40,7 @@
 				<!-- POST CONTENT (PREVIEW)-->
 				<div class="ml-4">
 					<span
-						class="inline-block align-text-top text-base text-gray-900 dark:text-gray-100">g/{{community.community_name}}
+						class="inline-block align-text-top text-base text-gray-900 dark:text-gray-100">g/{{community.slug}}
 						| Posted by u/{{post.author }} {{post.date_posted}}
 					</span>
 					<h2 class="flex text-2xl align-top font-bold mb-2">{{post.title}}</h2>
@@ -56,7 +56,7 @@
 		<div
 			class="block px-6 pt-6 pb-3 rounded-lg shadow-lg bg-white w-scren h-auto bg-white rounded-lg shadow dark:border dark:bg-gray-800 dark:border-gray-700">
 			<form
-				action="{{url_for('community.create_comment', name=community.community_name, post_id = post.post_id)}}"
+				action="{{url_for('community.create_comment', slug=community.slug, post_id = post.post_id)}}"
 				method="POST" autocomplete="off">
 				<div class="form-group mb-6 flex flex-col">
 					<input type="text"
@@ -80,7 +80,7 @@
 					<div class="flex gap-2">
 						<!--EDIT/DELETE COMMENT HERE -->
 						<form
-							action="{{url_for('community.delete_comment', name=post.community_id, post_id=post.post_id, comment_id=comment.comment_id)}}"
+							action="{{url_for('community.delete_comment', slug=post.community_slug, post_id=post.post_id, comment_id=comment.comment_id)}}"
 							method="POST">
 							<button type="submit">
 								<svg class="dark:hidden" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -96,7 +96,7 @@
 							</button>
 						</form>
 						<form
-							action="{{url_for('community.edit_comment', name=post.community_name, post_id=comment.post_id, comment_id=comment.comment_id)}}">
+							action="{{url_for('community.edit_comment', slug=post.community_slug, post_id=comment.post_id, comment_id=comment.comment_id)}}">
 							<button type="submit">
 								<svg class="dark:hidden" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
 									fill="black" class="bi bi-pencil-fill" viewBox="0 0 16 16">

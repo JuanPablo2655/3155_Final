@@ -3,24 +3,26 @@ from src.models import db, Community as CommunityModel
 
 class Community:
 
-    #Gets all communities
+    # Gets all communities
     def get_all_communities(self) -> list[CommunityModel]:
         communities: list[CommunityModel] = CommunityModel.query.all()
         return communities
 
     # Gets a community from the community database
-    def get_community(self, community_name: str):
+    def get_community(self, slug: str):
         get_comm = CommunityModel.query.filter_by(
-        community_name=community_name).first()
+            slug=slug).first()
         return get_comm
 
-    def check_community(self, community_name):
-        community_object = CommunityModel.query.filter_by(community_name=community_name).first()
+    def check_community(self, slug):
+        community_object = CommunityModel.query.filter_by(
+            slug=slug).first()
         return community_object
 
     # Creates a new community
-    def create_community(self, community_title: str, description: str, account_id: int):
-        new_community = CommunityModel(community_title, description, account_id)
+    def create_community(self, slug: str, community_title: str, description: str, account_id: int):
+        new_community = CommunityModel(
+            slug, community_title, description, account_id)
         db.session.add(new_community)
         db.session.commit()
 
