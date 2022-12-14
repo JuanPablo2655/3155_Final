@@ -116,6 +116,19 @@ def create_comment(name, post_id):
     else: 
         return redirect('/login')
 
+@community_blueprint.route('/community/<string:name>/<int:post_id>/edit', methods=['GET', 'POST'])
+def edit_post(name, post_id): 
+    if 'user' not in session: 
+        redirect('/login')
+    else: 
+        post = post_db.get_post(post_id)
+        if request.method == 'POST' and 'user' in session and post.account_id == session['user']['user_id']: 
+            title = request.form.get('title')
+            content = request.form.get('content')
+            post_db.update_post(post, title, content)
+            return redirect(url_for('community.get_specific_post', name=name, post_id=post_id))
+    return render_template('edit_post.html', post=post)
+
 @community_blueprint.post('/community/<string:name>/<int:post_id>/comment/<int:comment_id>/delete')
 def delete_comment(name, post_id, comment_id): 
     post = post_db.get_post(post_id)
@@ -128,9 +141,23 @@ def delete_comment(name, post_id, comment_id):
             return redirect(url_for('community.get_specific_post', name=post.community_name, post_id=post.post_id))
         comment_db.delete_comment(comment)
         flash("Successfully deleted post.", "success")
-        return redirect('/')
+        return redirect(f'/community/{post.community_name}/{post_id}')
     else: 
         abort(404)
+
+@community_blueprint.route('/community/<string:name>/<int:post_id>/comment/<int:comment_id>/edit', methods=['GET', 'POST'])
+def edit_comment(name, post_id, comment_id): 
+    post = post_db.get_post(post_id)
+    if 'user' not in session: 
+        redirect('/login')
+    else: 
+        comment = comment_db.get_comment(comment_id)
+        if request.method == 'POST' and 'user' in session and comment.account_id == session['user']['user_id']: 
+            content = request.form.get('content')
+            comment_db.update_comment(comment, content)
+            return redirect(url_for('community.get_specific_post', name=name, post_id=comment.post_id))
+    return render_template('edit_comment.html', comment=comment, post=post)
+
 
 
     
