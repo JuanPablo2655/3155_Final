@@ -75,7 +75,20 @@ def create_post(name):
 
     return render_template('create.html', community=community_obj)
 
-
+@community_blueprint.post('/community/<string:name>/<int:post_id>/delete')
+def delete_post(post_id, name): 
+    if 'user' not in session: 
+        return redirect('/login')
+    else: 
+        post = post_db.get_post(post_id)
+        if post: 
+            if post.account_id != session['user']['user_id']: 
+                return redirect(url_for('community.get_specific_post', name=post.community_name, post_id=post.post_id))
+            post_db.delete_post(post)
+            flash("Successfully deleted post.", "success")
+            return redirect('/')
+        else: 
+            abort(404)
 
 @community_blueprint.route('/community/<string:name>/<int:post_id>', methods=['GET'])
 def get_specific_post(name, post_id): 
