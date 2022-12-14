@@ -90,3 +90,24 @@ def test_get_comment(test_app: FlaskClient):
     assert 'fortnite_haterxx' in page_data
     #Makes sure the comment content is there
     assert 'I do not agree sir...' in page_data
+
+def test_get_login(test_app: FlaskClient): 
+    response = test_app.get('/login')
+    page_data: str = response.data.decode()
+
+    assert response is not None 
+    assert response.status_code == 200 
+    page_data = response.data.decode()
+
+    assert 'Login' in page_data
+
+def test_get_register(test_app: FlaskClient): 
+    response = test_app.get('/register?')
+    page_data: str = response.data.decode()
+
+    assert response is not None 
+    assert response.status_code == 200 
+    page_data = response.data.decode()
+
+    assert 'Create an account' in page_data
+
