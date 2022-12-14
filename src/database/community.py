@@ -19,8 +19,8 @@ class Community:
         return community_object
 
     # Creates a new community
-    def create_community(self, community_title: str, description: str):
-        new_community = CommunityModel(community_title, description)
+    def create_community(self, community_title: str, description: str, account_id: int):
+        new_community = CommunityModel(community_title, description, account_id)
         db.session.add(new_community)
         db.session.commit()
 

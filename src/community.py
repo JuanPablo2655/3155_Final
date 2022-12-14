@@ -27,6 +27,7 @@ def create_community():
         name = str(request.form.get('name')).strip()
         description = request.form.get('description')
         community_object = community_db.check_community(name)
+        account_id = session['user']['user_id']
 
         if community_object:
             flash("This communtity already exists", category='error')
@@ -34,7 +35,7 @@ def create_community():
         else:
             if name == '' or description == '':
                 abort(400)
-        community_db.create_community(name, description)
+        community_db.create_community(name, description, account_id)
         return redirect(url_for('community.communities'))
     else:
         return render_template('communities.html')
