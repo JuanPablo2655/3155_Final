@@ -9,7 +9,7 @@
 
 		<!--Create communities -->
 		{% if session %}
-		<form action="{{ url_for('community.create_post', name=community.community_name)}}">
+		<form action="{{ url_for('community.create_post', slug=community.slug)}}">
 			<button action="submit"
 				class="flex items-center gap-x-2 justify-between text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3 md:mr-0 dark:focus:ring-blue-800 dark:bg-violet-400 dark:text-gray-900 dark:hover:bg-violet-500">CREATE
 				NEW POST
@@ -36,7 +36,7 @@
 			<!-- UPVOTE -->
 			{% if (session) and post.account_id == session['user']['user_id']%}
 			<div>
-				<form action="{{url_for('community.edit_post', name=post.community_name, post_id=post.post_id)}}">
+				<form action="{{url_for('community.edit_post', slug=community.slug, post_id=post.post_id)}}">
 					<button type="submit">
 					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
 						class="bi bi-pencil-square" viewBox="0 0 16 16">
@@ -47,7 +47,7 @@
 					</svg>
 				</button>
 				</form>
-				<form action="{{url_for('community.delete_post', name=post.community_name, post_id=post.post_id)}}" method="POST">
+				<form action="{{url_for('community.delete_post', slug=community.slug, post_id=post.post_id)}}" method="POST">
 					<button type="submit">
 						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash"
 						viewBox="0 0 16 16">
@@ -60,11 +60,11 @@
 			</form>
 			</div>
 			{% endif %}
-			<a href="{{url_for('community.get_specific_post', name=community.community_name, post_id=post.post_id)}}">
+			<a href="{{url_for('community.get_specific_post', slug=community.slug, post_id=post.post_id)}}">
 				<!-- POST CONTENT (PREVIEW)-->
 				<div class="ml-4">
 					<span
-						class="inline-block align-text-top text-base text-gray-900 dark:text-gray-800">g/{{community.community_name}}
+						class="inline-block align-text-top text-base text-gray-900 dark:text-gray-800">g/{{community.slug}}
 						| Posted by u/{{post.author }} {{post.date_posted}}
 					</span>
 					<h2 class="flex text-2xl align-top font-bold mb-2 text-gray-800">{{post.title}}</h2>

@@ -13,6 +13,7 @@ CREATE TABLE IF NOT EXISTS account(
 CREATE TABLE IF NOT EXISTS community(
     community_id SERIAL NOT NULL, 
     community_name VARCHAR(255) NOT NULL,
+    slug VARCHAR(255) NOT NULL,
     description VARCHAR(255) NOT NULL,
     account_id INT NOT NULL, 
     PRIMARY KEY (community_id),
@@ -32,6 +33,7 @@ CREATE TABLE IF NOT EXISTS post(
     title VARCHAR(255) NOT NULL, 
     author VARCHAR(255) NOT NULL, 
     content VARCHAR(4096) NOT NULL,
+    community_slug VARCHAR(255) NOT NULL,  
     community_name VARCHAR(255) NOT NULL,  
     votes INT DEFAULT 0, 
     date_posted TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 

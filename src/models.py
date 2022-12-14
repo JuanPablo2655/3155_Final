@@ -14,7 +14,6 @@ class Game(db.Model):
         self.genre = genre
 
 
-
 class Account(db.Model):
     account_id = db.Column(db.Integer, primary_key=True)
     user_name = db.Column(db.String, nullable=False)
@@ -38,15 +37,17 @@ class Account(db.Model):
 class Community(db.Model):
     community_id = db.Column(db.Integer, primary_key=True)
     community_name = db.Column(db.String, nullable=True)
+    slug = db.Column(db.String, nullable=True)
     description = db.Column(db.String, nullable=True)
     account_id = db.Column(db.Integer, db.ForeignKey(
         'account.account_id'), nullable=False)
     # Needs a user id
     # Many posts belong to a single community
-    posts = db.relationship('Post', backref='community', lazy=True, cascade='all, delete-orphan')
+    posts = db.relationship('Post', backref='community',
+                            lazy=True, cascade='all, delete-orphan')
 
-
-    def __init__(self, community_name: str, description: str, account_id: str):
+    def __init__(self, slug: str, community_name: str, description: str, account_id: str):
+        self.slug = slug
         self.community_name = community_name
         self.description = description
         self.account_id = account_id
@@ -57,24 +58,28 @@ class Post(db.Model):
     title = db.Column(db.String, nullable=False)
     author = db.Column(db.String, nullable=False)
     content = db.Column(db.String, nullable=False)
-    date_posted = db.Column(db.DateTime, nullable=True, default=datetime.datetime.utcnow)
+    date_posted = db.Column(db.DateTime, nullable=True,
+                            default=datetime.datetime.utcnow)
+    community_slug = db.Column(db.String, nullable=False)
     community_name = db.Column(db.String, nullable=False)
     votes = db.Column(db.Integer, nullable=True, default=0)
     # references the foreign key of the account id. In other words, who it belongs to
     account_id = db.Column(db.Integer, db.ForeignKey(
         'account.account_id'), nullable=False)
     # All the comments on this one post.
-    comments = db.relationship('Comment', backref='post', lazy=True, cascade='all, delete-orphan')
+    comments = db.relationship(
+        'Comment', backref='post', lazy=True, cascade='all, delete-orphan')
     # Where the post belongs to in the community.
     community_id = db.Column(db.Integer, db.ForeignKey(
         'community.community_id'), nullable=False)
 
-    def __init__(self, title: str, author: str, content: str, community_name: str,account_id: int, community_id: int):
+    def __init__(self, title: str, author: str, content: str, community_slug: str, community_name: str, account_id: int, community_id: int):
         self.title = title
         self.author = author
         self.content = content
         self.account_id = account_id
         self.community_id = community_id
+        self.community_slug = community_slug
         self.community_name = community_name
 
 
@@ -82,7 +87,8 @@ class Comment(db.Model):
     comment_id = db.Column(db.Integer, primary_key=True)
     author = db.Column(db.String, nullable=False)
     content = db.Column(db.String, nullable=False)
-    date_posted = db.Column(db.String, nullable=True, default=datetime.datetime.utcnow)
+    date_posted = db.Column(db.String, nullable=True,
+                            default=datetime.datetime.utcnow)
     votes = db.Column(db.Integer, nullable=True, default=0)
     # The post_id of the comment. Where the comment belongs to.
     post_id = db.Column(db.Integer, db.ForeignKey(
