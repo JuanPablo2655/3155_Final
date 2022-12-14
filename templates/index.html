@@ -37,7 +37,8 @@
 					<path fill-rule="evenodd"
 						d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
 				</svg>
-
+			<form action="{{url_for('community.edit_post', name=post.community_name, post_id=post.post_id)}}">
+				<button type="submit">
 				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
 					class="bi bi-pencil-square" viewBox="0 0 16 16">
 					<path
@@ -45,12 +46,14 @@
 					<path fill-rule="evenodd"
 						d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
 				</svg>
+			</button>
+			</form>
 			</div>
 			<!--community/{{post.community_name}}/{{post.post_id}}-->
-			<a href="#">
+			<a href="/community/{{post.community_name}}/{{post.post_id}}">
 				<!-- POST CONTENT (PREVIEW)-->
 				<div class="ml-4">
-					<span class="inline-block align-text-top text-base text-gray-900 dark:text-gray-800">g/
+					<span class="inline-block align-text-top text-base text-gray-900 dark:text-gray-800">g/{{post.community_name}}
 						| Posted by u/{{post.author}} {{post.date_posted}}
 					</span>
 					<h2 class="flex text-2xl align-top font-bold mb-2 text-gray-800">{{post.title}}</h2>

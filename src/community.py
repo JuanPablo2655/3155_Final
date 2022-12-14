@@ -102,3 +102,18 @@ def create_comment(name, post_id):
         return redirect(f'/community/{community_obj.community_name}/{post_id}')
     else: 
         return redirect('/login')
+
+@community_blueprint.route('/community/<string:name>/<int:post_id>/edit', methods=['GET', 'POST'])
+def edit_post(name, post_id): 
+    if 'user' not in session: 
+        redirect('/login')
+    else: 
+        post = post_db.get_post(post_id)
+        if request.method == 'POST' and 'user' in session and post.account_id == session['user']['user_id']: 
+            title = request.form.get('title')
+            content = request.form.get('content')
+            post_db.update_post(post, title, content)
+            return redirect(url_for('community.get_specific_post', name=name, post_id=post_id))
+    return render_template('edit_post.html', post=post)
+
+    

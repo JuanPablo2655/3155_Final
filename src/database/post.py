@@ -22,8 +22,9 @@ class Post:
         db.session.add(post)
         db.session.commit()
 
-    def update_post(self, post, description):
-        post.description = description
+    def update_post(self, post, title, content):
+        post.title = title 
+        post.content = content
         db.session.commit()
 
     def delete_post(self, post):
