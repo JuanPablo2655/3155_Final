@@ -34,6 +34,7 @@
 	<div class="w-3/4 slide-top p-10 ">
 		<div class="flex flex-row bg-white p-6 rounded-lg shadow-lg">
 			<!-- UPVOTE -->
+			{% if (session) and post.account_id == session['user']['user_id']%}
 			<div>
 				<form action="{{url_for('community.edit_post', name=post.community_name, post_id=post.post_id)}}">
 					<button type="submit">
@@ -58,6 +59,7 @@
 				</button>
 			</form>
 			</div>
+			{% endif %}
 			<a href="{{url_for('community.get_specific_post', name=community.community_name, post_id=post.post_id)}}">
 				<!-- POST CONTENT (PREVIEW)-->
 				<div class="ml-4">

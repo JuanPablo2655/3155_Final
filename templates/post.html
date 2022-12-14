@@ -3,6 +3,7 @@
 	<div class="slide-top px-10">
 		<div class="flex flex-row bg-white p-6 rounded-lg shadow-lg">
 			<!-- EDIT FOR POST -->
+			{% if (session) and post.account_id == session['user']['user_id']%}
 			<div>
 				<form action="{{url_for('community.edit_post', name=post.community_name, post_id=post.post_id)}}" method="GET">
 					<button type="submit">
@@ -28,7 +29,7 @@
 				</button>
 				</form>
 			</div>
-
+			{% endif %}
 			<!-- POST CONTENT (PREVIEW)-->
 			<div class="ml-4">
 				<span
@@ -67,6 +68,7 @@
 		<div class="flex">
 			<div
 				class="flex-1 border rounded-lg px-4 py-2 sm:px-6 sm:py-4 leading-relaxed dark:text-white shadow-lg bg-white w-scren h-auto bg-white rounded-lg shadow dark:border dark:bg-gray-800 dark:border-gray-700">
+				{% if (session) and comment.account_id == session['user']['user_id']%}
 				<div>
 					<!--EDIT/DELETE COMMENT HERE -->
 					<form action="{{url_for('community.delete_comment', name=post.community_id, post_id=post.post_id, comment_id=comment.comment_id)}}" method="POST">
@@ -92,6 +94,7 @@
 						</button>
 						</form>
 				</div>
+				{% endif %}
 				<strong>u/{{comment.author}}</strong><span class="text-xs text-gray-400 dark:text-white">
 					{{comment.date_posted}}</span>
 				<p class="text-sm">
