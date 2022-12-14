@@ -25,22 +25,24 @@
       class="slide-right focus:outline-none md:w-3/4 md:mr-7 lg:mb-0 mb-7 bg-white dark:bg-gray-800 p-6 shadow rounded-lg">
       <div class="flex items-center border-b border-gray-200 dark:border-gray-700  pb-6">
 
-        <!-- TOP ROW  -->
-        <div class="flex items-start justify-between w-full">
-
-          <!-- DISPLAY DELETE COMMUNITY  -->
-          {% if (session) and community.account_id == session['user']['user_id']%}
-          <form action="{{url_for('community.delete_community', slug=community.slug)}}" method="POST">
-						<button type="submit">
-							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash"
-							viewBox="0 0 16 16">
-							<path
-								d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
-							<path fill-rule="evenodd"
-								d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
-						</svg>
-						</button>
-					</form>
+          <!-- TOP ROW  -->
+          <div class="flex items-start justify-center items-center w-full">
+            <div class="flex flex-col">
+              <!-- DISPLAY DELETE COMMUNITY  -->
+              {% if (session) and community.account_id == session['user']['user_id']%}
+              <form action="{{url_for('community.delete_community', slug=community.slug)}}" method="POST">
+                <button type="submit">
+                  <svg class="dark:hidden" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="black"
+                    class="bi bi-trash-fill" viewBox="0 0 16 16">
+                    <path
+                      d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
+                  </svg>
+                  <svg class="dark:block hidden" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white"
+                    class="bi bi-trash-fill" viewBox="0 0 16 16">
+                    <path
+                      d="M2.5 1 1 0 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
+                  </svg>
+              </form>
 
           <!-- DISPLAY EDIT COMMUNITY-->
           <form action="{{url_for('community.edit_community', slug=community.slug)}}">
@@ -76,13 +78,13 @@
             </svg>
           </a>
         </div>
-      </div>
-      <div class="px-2">
-        <p class="focus:outline-none text-sm leading-5 py-4 text-gray-600 dark:text-gray-200 ">{{
-          community.description }}</p>
+        <div class="px-2">
+          <p class="focus:outline-none text-sm leading-5 py-4 text-gray-600 dark:text-gray-200 ">{{
+            community.description }}</p>
+        </div>
       </div>
     </div>
   </div>
-</div>
-{% endfor %}
+  {% endfor %}
+</section>
 {% endblock %}

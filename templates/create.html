@@ -1,12 +1,4 @@
 {% extends '_base.html' %} {% block title %}Create Post{% endblock %} {% block body %}
-<h1>New Post</h1>
-<form action="{{ url_for('community.create_post', slug=community.slug)}}" method="POST">
-	<label for="title">Topic</label>
-	<input type="title" name="title" id="title" placeholder="What topic are you creating a post for?" required />
-	<input type="description" name="description" id="description" placeholder="What do you have to say?" required />
-	<input type="submit" name="submit" id="submit" value="Post" />
-</form>
-
 <!--Create Post -->
 <section class="bg-gray-50 dark:bg-gray-900 flex items-center justify-center h-screen">
 	<div
